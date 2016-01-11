@@ -1,0 +1,64 @@
+name:                koshu-io
+version:             0.1.0.0
+synopsis:            Generate and compare I/O lists
+-- description:         
+license:             BSD3
+license-file:        LICENSE
+author:              SEINO Katsuhiro
+maintainer:          
+copyright:           2016, SEINO Katsuhiro
+category:            Testing
+build-type:          Simple
+-- extra-source-files:  
+cabal-version:       >= 1.10
+
+library
+  -- Modules exported by the library.
+  exposed-modules:
+         Koshucode.KoshuIO.IOList
+       , Koshucode.KoshuIO.IOList.Doc
+       , Koshucode.KoshuIO.IOList.File
+       , Koshucode.KoshuIO.IOList.IOList
+       , Koshucode.KoshuIO.IOList.Markdown
+       , Koshucode.KoshuIO.IOList.Section
+
+       , Koshucode.KoshuIO.Main
+
+       , Koshucode.KoshuIO.Operation
+       , Koshucode.KoshuIO.Operation.Diff
+       , Koshucode.KoshuIO.Operation.Init
+       , Koshucode.KoshuIO.Operation.Regress
+       , Koshucode.KoshuIO.Operation.Run
+       , Koshucode.KoshuIO.Operation.Summary
+
+       , Koshucode.KoshuIO.Operate
+       , Koshucode.KoshuIO.Param
+       , Koshucode.KoshuIO.Status
+
+       , Koshucode.KoshuIO.Utility
+       , Koshucode.KoshuIO.Utility.Assoc
+       , Koshucode.KoshuIO.Utility.Command
+       , Koshucode.KoshuIO.Utility.FileDirs
+       , Koshucode.KoshuIO.Utility.ForFiles
+       , Koshucode.KoshuIO.Utility.Put
+
+  -- Modules included in this library but not exported.
+  --other-modules:       
+  
+  -- Other library packages from which modules are imported.
+  build-depends:
+         base            >= 4.7 && < 4.8
+       , binary          == 0.*
+       , bytestring      == 0.*
+       , dates           == 0.*
+       , Diff            == 0.*
+       , directory       == 1.*
+       , filepath        == 1.*
+       , Glob            == 0.*
+       , process-extras  == 0.*
+
+  ghc-options:         -Wall
+
+  -- hs-source-dirs:      
+  default-language:    Haskell2010
+
