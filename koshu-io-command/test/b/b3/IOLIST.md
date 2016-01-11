@@ -1,0 +1,14 @@
+# I/O List
+
+
+## ls
+
+### Output
+
+**ls** exits successfully.
+
+~~~~~~~~~~
+IOLIST
+IOLIST.md
+~~~~~~~~~~
+
