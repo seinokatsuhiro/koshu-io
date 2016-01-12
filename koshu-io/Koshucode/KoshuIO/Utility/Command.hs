@@ -2,7 +2,7 @@
 
 module Koshucode.KoshuIO.Utility.Command
  ( CmdLine, CmdName, CmdArg,
-   readCommand,
+   readScript,
    beginWith,
  ) where
 
@@ -20,8 +20,8 @@ type CmdName = String
 type CmdArg = String
 
 -- | Read list of commands from file.
-readCommand :: FilePath -> IO [String]
-readCommand path = do
+readScript :: FilePath -> IO [String]
+readScript path = do
   exist <- Dir.doesFileExist path
   case exist of
     False  -> error $ path ++ ": No such file or directory"

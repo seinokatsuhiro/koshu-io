@@ -10,6 +10,7 @@ module Koshucode.KoshuIO.Status
    try,
  ) where
 
+import qualified Data.Maybe                   as Maybe
 import qualified System.Exit                  as Exit
 import qualified Koshucode.KoshuIO.Utility    as K
 
@@ -37,10 +38,11 @@ data StatusCount = StatusCount
     } deriving (Show, Ord, Eq)
 
 statusFiles :: [Status] -> [K.FileDirs]
-statusFiles = concatMap f where
-    f (StatusScript  file _)    = [file]
-    f (StatusSummary file _ _)  = [file]
-    f _                         = []
+statusFiles = Maybe.mapMaybe f where
+    f (StatusScript  file _)    = Just file
+    f (StatusSummary file _ _)  = Just file
+    f (StatusGrand   file _)    = Just file
+    f _                         = Nothing
 
 statusResults :: Status -> [StatusResult]
 statusResults = loop where

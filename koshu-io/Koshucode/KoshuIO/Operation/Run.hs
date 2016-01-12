@@ -42,7 +42,7 @@ runScript :: K.Param -> K.FileDirs -> IO K.Status
 runScript p f = do
   let file  = K.fileName f
       p'    = K.paramSetScript p f
-  cmds <- K.readCommand file
+  cmds <- K.readScript file
   case cmds of
     [cmd] | begin ["grand"]    -> K.operate (K.paramSetGrand p f) cmd'
           | begin ["summary"]  -> K.operate (K.paramSetSummary p f) cmd'

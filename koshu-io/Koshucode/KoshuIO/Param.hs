@@ -10,12 +10,12 @@ module Koshucode.KoshuIO.Param
    paramSetGrand,
    paramSetSummary,
    paramSetScript,
+   mdFileDirs,
    mdFilePath,
  ) where
 
 import qualified Data.Dates                       as D
 import qualified System.Environment               as Env
-import qualified System.FilePath.Posix            as Posix
 
 import qualified Koshucode.KoshuIO.Operate        as K
 import qualified Koshucode.KoshuIO.Utility        as K
@@ -77,8 +77,11 @@ paramSetScript p f =
     p { paramScript   = Just f
       , paramOutput   = mdFilePath f }
 
+mdFileDirs :: K.FileDirs -> K.FileDirs
+mdFileDirs = K.changeExtension "md"
+
 mdFilePath :: K.FileDirs -> FilePath
-mdFilePath file = Posix.dropExtension (K.fileName file) ++ ".md"
+mdFilePath = K.fileName . mdFileDirs
 
 
 -- --------------------------------------------  Operation

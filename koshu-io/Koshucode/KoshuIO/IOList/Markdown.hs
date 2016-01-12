@@ -7,10 +7,11 @@ module Koshucode.KoshuIO.IOList.Markdown
    mdTitle,
    mdHead,
    mdStatus,
+   mdFileItem,
    mdBlock,
  ) where
 
-import qualified Control.Monad                as C
+--import qualified Control.Monad                as C
 import qualified Data.ByteString              as Bs
 import qualified Data.ByteString.Char8        as Bc
 import qualified Data.Binary.Put              as Put
@@ -34,21 +35,6 @@ instance (ToMarkdown a) => ToMarkdown [a] where
     toMarkdown = K.puts . map toMarkdown
 
 
--- ----------------------  Status
-
-mdStatus :: K.CmdLine -> Exit.ExitCode -> Put.Put
-mdStatus cmdline exit = do
-  K.putlnS $ emp cmdline ++ " " ++ statusString exit ++ "."
-  K.putln
-
-emp :: String -> String
-emp s = "**" ++ s ++ "**"
-
-statusString :: Exit.ExitCode -> String
-statusString (Exit.ExitSuccess)   = "exits successfully"
-statusString (Exit.ExitFailure n) = "fails with status " ++ show n
-
-
 -- ----------------------  Heading
 
 mdTitle :: K.Param -> Put.Put
@@ -69,6 +55,28 @@ mdHeadPrefix p text = do
     K.putln
 
 
+-- ----------------------  Status
+
+mdStatus :: K.CmdLine -> Exit.ExitCode -> Put.Put
+mdStatus cmdline exit = do
+  K.putlnS $ emp cmdline ++ " " ++ statusString exit ++ "."
+  K.putln
+
+emp :: String -> String
+emp s = "**" ++ s ++ "**"
+
+statusString :: Exit.ExitCode -> String
+statusString (Exit.ExitSuccess)   = "exits successfully"
+statusString (Exit.ExitFailure n) = "fails with status " ++ show n
+
+
+-- ----------------------  Link
+
+mdFileItem :: K.FileDirs -> Put.Put
+mdFileItem file = K.putlnS item where
+    item = "- [" ++ K.slashSpace path ++ "](" ++ K.slash path ++ ")"
+    path = K.fileDirs file
+
 -- ----------------------  Block
 
 mdBlock :: Bs.ByteString -> Put.Put
@@ -82,9 +90,10 @@ isText c = Ch.isPrint c || Ch.isSpace c
 
 mdBlockText :: Bs.ByteString -> Put.Put
 mdBlockText bs = do
+  let ls = Bc.lines bs
   putFence
-  K.putBs bs
-  C.when (Bc.last bs /= '\n') K.putln
+  mapM_ K.putlnBs ls
+  -- C.when (Bc.last bs /= '\n') K.putln
   putFence
   K.putln
 
