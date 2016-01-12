@@ -7,7 +7,6 @@ module Koshucode.KoshuIO.IOList.IOList
  ) where
 
 import           Data.List                          ((\\))
-import qualified System.Directory                   as Dir
 import qualified System.FilePath.Glob               as Glob
 import qualified System.Process.ByteString          as Proc
 import qualified Data.ByteString.Lazy               as Bz
@@ -80,7 +79,7 @@ globArg arg = do
 
 globFile :: K.CmdArg -> IO [K.CmdArg]
 globFile arg = do
-  files <- Dir.getDirectoryContents "."
+  files <- K.listDir "."
   return $ filter (Glob.match $ Glob.compile arg) files
 
 -- | Splitted arguments

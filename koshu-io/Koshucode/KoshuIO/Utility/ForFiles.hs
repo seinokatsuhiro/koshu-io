@@ -14,6 +14,7 @@ module Koshucode.KoshuIO.Utility.ForFiles
    fileActionNull, fileActionPrint,
    -- * Utility
    directoryOrNot,
+   listDir,
    omitHidden,
  ) where
 
@@ -58,25 +59,11 @@ forFilesAction dir = loop where
 
 forFiles :: FilePath -> ([FilePath] -> IO a) -> IO a
 forFiles path f = do
-  files <- sortedFiles path
+  files <- listDir path
   Dir.withCurrentDirectory path $ f files
-
-sortedFiles :: FilePath -> IO [FilePath]
-sortedFiles path =
-    do fs <- Dir.listDirectory path
-       return $ List.sort fs
 
 forFilesPrint :: FilePath -> IO ()
 forFilesPrint path = forFilesRec_ dirActionPrint fileActionPrint path
-
-directoryOrNot :: [FilePath] -> IO ([FilePath], [FilePath])
-directoryOrNot = loop where
-    loop [] = return ([], [])
-    loop (p:ps) = do (ds, fs) <- loop ps
-                     exist <- Dir.doesFileExist p
-                     case exist of
-                       False -> return (ds, p:fs)
-                       True  -> return (p:ds, fs)
 
 
 -- ----------------------  actions
@@ -104,6 +91,20 @@ fileActionPrint file = do
 
 
 -- ----------------------  utility
+
+directoryOrNot :: [FilePath] -> IO ([FilePath], [FilePath])
+directoryOrNot = loop where
+    loop [] = return ([], [])
+    loop (p:ps) = do (ds, fs) <- loop ps
+                     exist <- Dir.doesFileExist p
+                     case exist of
+                       False -> return (ds, p:fs)
+                       True  -> return (p:ds, fs)
+
+listDir :: FilePath -> IO [FilePath]
+listDir path =
+    do fs <- Dir.listDirectory path
+       return $ List.sort fs
 
 omitHidden :: [FilePath] -> [FilePath]
 omitHidden = filter (not . isHidden)
