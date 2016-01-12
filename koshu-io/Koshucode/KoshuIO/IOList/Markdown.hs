@@ -11,7 +11,6 @@ module Koshucode.KoshuIO.IOList.Markdown
    mdBlock,
  ) where
 
---import qualified Control.Monad                as C
 import qualified Data.ByteString              as Bs
 import qualified Data.ByteString.Char8        as Bc
 import qualified Data.Binary.Put              as Put
@@ -90,15 +89,16 @@ isText c = Ch.isPrint c || Ch.isSpace c
 
 mdBlockText :: Bs.ByteString -> Put.Put
 mdBlockText bs = do
-  let ls = Bc.lines bs
   putFence
-  mapM_ K.putlnBs ls
-  -- C.when (Bc.last bs /= '\n') K.putln
+  putlnBsText `mapM_` Bc.lines bs
   putFence
   K.putln
 
+putlnBsText :: Bs.ByteString -> Put.Put
+putlnBsText bs = K.putlnBs $ Bc.filter (/= '\r') bs
+
 putFence :: Put.Put
-putFence = K.putlnBs "~~~~~~~~~~"
+putFence = K.putlnBs "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 mdBinary :: Bs.ByteString -> Put.Put
 mdBinary bs =
