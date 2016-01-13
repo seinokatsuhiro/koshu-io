@@ -48,14 +48,18 @@ forFilesRec dir file = loop [] where
                     rs     <- loop up' `mapM` files'
                     return $ concat rs
 
-forFilesAction :: DirAction [a] -> K.FileDirs -> IO [a]
-forFilesAction dir = loop where
-    loop fd = do
-      let path = K.fileName fd
+forFilesAction ::  FilePath -> DirAction ([a], [FilePath]) -> IO [a]
+forFilesAction p dir = loop [] p where
+    loop up path = do
       exist <- Dir.doesDirectoryExist path
       case exist of
         False -> return []
-        True  -> forFiles path $ dir fd
+        True  -> forFiles path $ \files -> do
+                    let up' = path : up
+                        f = K.FileDirs path up
+                    (rs, fs) <- dir f files
+                    rs'      <- loop up' `mapM` fs
+                    return $ rs ++ concat rs'
 
 forFiles :: FilePath -> ([FilePath] -> IO a) -> IO a
 forFiles path f = do

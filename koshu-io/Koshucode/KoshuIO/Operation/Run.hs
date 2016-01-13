@@ -3,7 +3,8 @@
 
 module Koshucode.KoshuIO.Operation.Run
  ( opCommand, opRun,
-   runScript,
+   runScriptFile,
+   runScriptContent,
  ) where
 
 import qualified Data.ByteString.Lazy                 as Bz
@@ -25,7 +26,7 @@ opCommand p args = do
 
 -- | Operation for @run@
 opRun :: K.Operation
-opRun p [file] = runScript p $ K.fromFileName file
+opRun p [file] = runScriptFile p $ K.fromFileName file
 opRun _ _      = helpRun
 
 helpRun :: IO K.Status
@@ -38,18 +39,17 @@ helpRun = do
   putStrLn ""
   return K.StatusMessage
 
-runScript :: K.Param -> K.FileDirs -> IO K.Status
-runScript p f = do
-  let file  = K.fileName f
-      p'    = K.paramSetScript p f
-  cmds <- K.readScript file
-  case cmds of
-    [cmd] | begin ["grand"]    -> K.operate (K.paramSetGrand p f) cmd'
-          | begin ["summary"]  -> K.operate (K.paramSetSummary p f) cmd'
-          | begin []           -> K.operate p' cmd'
-        where begin ws = K.beginWith ("koshu-io" : ws) cmd
-              cmd'     = tail $ words cmd
-    _ -> runIOList p' cmds
+runScriptFile :: K.Param -> K.FileDirs -> IO K.Status
+runScriptFile p f = do
+  script <- K.readScript f $ K.fileName f
+  runScriptContent p script
+
+runScriptContent :: K.Param -> K.Script -> IO K.Status
+runScriptContent p script =
+  case script of
+    K.CommandScript fd cmds -> runIOList (K.paramSetScript  p fd)  cmds
+    K.SummaryScript fd cmd  -> K.operate (K.paramSetSummary p fd) $ tail $ words cmd
+    K.GrandScript   fd cmd  -> K.operate (K.paramSetGrand   p fd) $ tail $ words cmd
 
 runIOList :: K.Param -> [K.CmdLine] -> IO K.Status
 runIOList p cmds = retry where

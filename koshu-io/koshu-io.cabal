@@ -37,10 +37,10 @@ library
 
        , Koshucode.KoshuIO.Utility
        , Koshucode.KoshuIO.Utility.Assoc
-       , Koshucode.KoshuIO.Utility.Command
        , Koshucode.KoshuIO.Utility.FileDirs
        , Koshucode.KoshuIO.Utility.ForFiles
        , Koshucode.KoshuIO.Utility.Put
+       , Koshucode.KoshuIO.Utility.Script
 
   -- Modules included in this library but not exported.
   --other-modules:       
