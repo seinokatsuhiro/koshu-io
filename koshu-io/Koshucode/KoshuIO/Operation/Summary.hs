@@ -34,7 +34,7 @@ opFind _ scripts =
 opSummary :: K.Operation
 opSummary p@K.Param {..} scripts =
     do K.putHead '-' summaryTitle
-       ss <- K.forFilesAction "." action
+       ss <- K.forFilesUp "." action
        let cnt = K.statusCount ss
        putStrLn ""
        save summaryTotal summaryTitle paramSummary cnt ss
@@ -66,7 +66,7 @@ putFile prefix f = do
 opGrand :: K.Operation
 opGrand p@K.Param {..} scripts =
     do K.putHead '=' grandTitle
-       ss <- K.forFilesAction "." action
+       ss <- K.forFilesUp "." action
        let cnt = K.statusCount ss
        save grandTotal grandTitle paramGrand cnt ss
        case paramGrand of

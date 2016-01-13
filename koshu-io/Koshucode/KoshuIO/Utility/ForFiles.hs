@@ -5,7 +5,7 @@
 module Koshucode.KoshuIO.Utility.ForFiles
  ( -- * For files
    forFiles, forFilesRec, forFilesRec_, forFilesPrint,
-   forFilesAction,
+   forFilesUp,
    -- * Directory action
    DirAction, DirFilter, 
    dirActionAll, dirActionVisible, dirActionPrint,
@@ -31,11 +31,22 @@ type DirAction a = K.FileDirs -> [FilePath] -> IO a
 
 type FileAction a = K.FileDirs -> IO a
 
-forFilesRec_ :: DirFilter -> FileAction a -> FilePath -> IO ()
-forFilesRec_ dir file path = forFilesRec dir file path >> return ()
+forFiles :: FilePath -> ([FilePath] -> IO a) -> IO a
+forFiles path act = do
+  files <- listDir path
+  Dir.withCurrentDirectory path $ act files
 
-forFilesRec :: DirFilter -> FileAction a -> FilePath -> IO [a]
-forFilesRec dir file = loop [] where
+forFilesUp :: forall a. FilePath -> DirAction ([a], [FilePath]) -> IO [a]
+forFilesUp p act = loop $ K.fromFileName p where
+    loop :: K.FileDirs -> IO [a]
+    loop up = forFiles (K.fileName up) $ \files -> do
+         (rs, fs) <- act up files
+         (ds, _)  <- directoryOrNot fs
+         rs'      <- loop `mapM` map (`K.filePush` up) ds
+         return $ rs ++ concat rs'
+
+forFilesRec :: FilePath -> DirFilter -> FileAction a -> IO [a]
+forFilesRec p dir file = loop [] p where
     loop up path = do
       let f = K.FileDirs path up
       exist <- Dir.doesDirectoryExist path
@@ -48,26 +59,11 @@ forFilesRec dir file = loop [] where
                     rs     <- loop up' `mapM` files'
                     return $ concat rs
 
-forFilesAction ::  FilePath -> DirAction ([a], [FilePath]) -> IO [a]
-forFilesAction p dir = loop [] p where
-    loop up path = do
-      exist <- Dir.doesDirectoryExist path
-      case exist of
-        False -> return []
-        True  -> forFiles path $ \files -> do
-                    let up' = path : up
-                        f = K.FileDirs path up
-                    (rs, fs) <- dir f files
-                    rs'      <- loop up' `mapM` fs
-                    return $ rs ++ concat rs'
-
-forFiles :: FilePath -> ([FilePath] -> IO a) -> IO a
-forFiles path f = do
-  files <- listDir path
-  Dir.withCurrentDirectory path $ f files
+forFilesRec_ :: FilePath -> DirFilter -> FileAction a -> IO ()
+forFilesRec_ path dir file = forFilesRec path dir file >> return ()
 
 forFilesPrint :: FilePath -> IO ()
-forFilesPrint path = forFilesRec_ dirActionPrint fileActionPrint path
+forFilesPrint path = forFilesRec_ path dirActionPrint fileActionPrint
 
 
 -- ----------------------  actions
@@ -100,10 +96,10 @@ directoryOrNot :: [FilePath] -> IO ([FilePath], [FilePath])
 directoryOrNot = loop where
     loop [] = return ([], [])
     loop (p:ps) = do (ds, fs) <- loop ps
-                     exist <- Dir.doesFileExist p
+                     exist <- Dir.doesDirectoryExist p
                      case exist of
-                       False -> return (ds, p:fs)
                        True  -> return (p:ds, fs)
+                       False -> return (ds, p:fs)
 
 listDir :: FilePath -> IO [FilePath]
 listDir path =
