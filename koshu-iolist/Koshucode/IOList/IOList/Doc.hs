@@ -12,9 +12,9 @@ module Koshucode.IOList.IOList.Doc
    ArgProcess (..),
  ) where
 
-import qualified Data.ByteString                   as Bs
-import qualified Data.Binary.Put                   as Put
 import qualified System.Exit                       as Exit
+
+import qualified Koshucode.Baala.Base              as K
 
 import qualified Koshucode.IOList.Param            as K
 import qualified Koshucode.IOList.Utility          as K
@@ -55,7 +55,7 @@ data Command
 -- ----------------------  Input and Output
 
 -- | Exit status, standard output, and standard error.
-type ProcessResult = (Exit.ExitCode, Bs.ByteString, Bs.ByteString)
+type ProcessResult = (Exit.ExitCode, K.Bs, K.Bs)
 
 -- | Process result.
 data Process = Process
@@ -106,13 +106,13 @@ instance K.Numbering Command where
 -- ----------------------  ToMarkdown
 
 instance K.ToMarkdown Doc where
-    toMarkdown Doc {..} = do
+    toMarkdown Doc {..} =
         K.mdTitle docParam   -- unwords (docProg : docArgs)
-        K.toMarkdown docCommand
+        K.<> K.toMarkdown docCommand
 
 instance K.ToMarkdown Command where
 
-    toMarkdown NoCommand = K.putEmpty
+    toMarkdown NoCommand = K.mixEmpty
 
     --  Single command
     --
@@ -122,8 +122,7 @@ instance K.ToMarkdown Command where
     --     1.3 Output
     --
     toMarkdown (SingleCommand _ files proc) =
-        do K.toMarkdown files
-           K.toMarkdown proc
+        K.toMarkdown files K.<> K.toMarkdown proc
 
     --  Multiple commands
     --
@@ -134,24 +133,23 @@ instance K.ToMarkdown Command where
     --     1.4 File and Output
     --
     toMarkdown (MultipleCommands _ files ios) =
-        do K.toMarkdown files
-           K.toMarkdown ios
+        K.toMarkdown files K.<> K.toMarkdown ios
 
 instance K.ToMarkdown ArgProcess where
-    toMarkdown ArgProcess {..} = do
+    toMarkdown ArgProcess {..} =
       K.toMarkdown apFile
-      K.toMarkdown apProcess
+      K.<> K.toMarkdown apProcess
 
 instance K.ToMarkdown Process where
     toMarkdown (Process cmdline (exit, stdout, stderr)) =
-        do K.mdStatus cmdline exit
-           K.mdBlock stdout
-           mdStderr stderr
+        K.mdStatus cmdline exit
+        K.<> K.mdBlock stdout
+        K.<> mdStderr stderr
 
-mdStderr :: Bs.ByteString -> Put.Put
-mdStderr "" = K.putEmpty
-mdStderr bs = do
-  K.putlnBs "(standard error)"
-  K.putln
-  K.mdBlock bs
+mdStderr :: K.Bs -> K.MixText
+mdStderr "" = K.mixEmpty
+mdStderr bs =
+  K.mixLine (K.mixBs "(standard error)")
+  K.<> K.mixHard
+  K.<> K.mdBlock bs
 

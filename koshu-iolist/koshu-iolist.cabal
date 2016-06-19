@@ -48,15 +48,15 @@ library
   
   -- Other library packages from which modules are imported.
   build-depends:
-         base            == 4.*
-       , binary          == 0.*
-       , bytestring      == 0.*
-       , dates           == 0.*
-       , Diff            == 0.*
-       , directory       == 1.*
-       , filepath        == 1.*
-       , Glob            == 0.*
-       , process-extras  == 0.*
+         base                  == 4.*
+       , bytestring            == 0.*
+       , dates                 == 0.*
+       , Diff                  == 0.*
+       , directory             >= 1.2.5
+       , filepath              == 1.*
+       , Glob                  == 0.*
+       , process-extras        == 0.*
+       , koshucode-baala-base  >= 0.150
 
   ghc-options:         -Wall
 

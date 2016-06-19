@@ -9,8 +9,8 @@ module Koshucode.IOList.IOList.IOList
 import           Data.List                         ((\\))
 import qualified System.FilePath.Glob              as Glob
 import qualified System.Process.ByteString         as Proc
-import qualified Data.ByteString.Lazy              as Bz
-import qualified Data.Binary.Put                   as Put
+
+import qualified Koshucode.Baala.Base              as K
 
 import qualified Koshucode.IOList.Param            as K
 import qualified Koshucode.IOList.Utility          as K
@@ -20,10 +20,14 @@ import qualified Koshucode.IOList.IOList.Markdown  as K
 import qualified Koshucode.IOList.IOList.Section   as K
 
 -- | Create I/O list as lazy bytestring.
-ioList :: K.Param -> [K.CmdLine] -> IO Bz.ByteString
+ioList :: K.Param -> [K.CmdLine] -> IO K.Bz
 ioList p@K.Param {..} cmdlines = do
     cs <- mapM run cmdlines
-    return $ Put.runPut $ K.toMarkdown $ K.numberingRoot $
+    return $ K.mixToBz K.crlfBreak $ ioListMix p cs
+
+ioListMix :: K.Param -> [K.Section K.Command] -> K.MixText
+ioListMix p@K.Param {..} cs = do
+  K.toMarkdown $ K.numberingRoot $
              K.Doc { K.docParam   = p
                    , K.docProg    = paramProg
                    , K.docArgs    = paramArgs

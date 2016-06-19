@@ -11,12 +11,13 @@ module Koshucode.IOList.IOList.Markdown
    mdBlock,
  ) where
 
+import Data.Monoid ((<>))
 import qualified Data.ByteString             as Bs
 import qualified Data.ByteString.Char8       as Bc
-import qualified Data.Binary.Put             as Put
 import qualified Data.Char                   as Ch
 import qualified System.Exit                 as Exit
 
+import qualified Koshucode.Baala.Base        as K
 import qualified Koshucode.IOList.Param      as K
 import qualified Koshucode.IOList.Utility    as K
 
@@ -24,84 +25,87 @@ import qualified Koshucode.IOList.Utility    as K
 -- ----------------------  ToMarkdown
 
 class ToMarkdown a where
-    toMarkdown :: a -> Put.Put
+    toMarkdown :: a -> K.MixText
 
 instance (ToMarkdown a) => ToMarkdown (Maybe a) where
-    toMarkdown Nothing   = K.putEmpty
+    toMarkdown Nothing   = K.mixEmpty
     toMarkdown (Just a)  = toMarkdown a
 
 instance (ToMarkdown a) => ToMarkdown [a] where
-    toMarkdown = K.puts . map toMarkdown
+    toMarkdown = mconcat . map toMarkdown
 
 
 -- ----------------------  Heading
 
-mdTitle :: K.Param -> Put.Put
-mdTitle K.Param { K.paramTitle = Nothing } = K.putEmpty
-mdTitle K.Param { K.paramTitle = Just s }  = do
-  mdHead 1 s
-  K.putln
+mdTitle :: K.Param -> K.MixText
+mdTitle K.Param { K.paramTitle = Nothing } = K.mixEmpty
+mdTitle K.Param { K.paramTitle = Just s }  = K.mixLine $ mdHead 1 s
 
-mdHead :: Int -> String -> Put.Put
-mdHead 1 = mdHeadPrefix "# "
-mdHead 2 = mdHeadPrefix "## "
-mdHead 3 = mdHeadPrefix "### "
-mdHead _ = mdHeadPrefix "#### "
+mdHead :: Int -> String -> K.MixText
+mdHead 1 = mdHeadPrefix "#"
+mdHead 2 = mdHeadPrefix "##"
+mdHead 3 = mdHeadPrefix "###"
+mdHead _ = mdHeadPrefix "####"
 
-mdHeadPrefix :: String -> String -> Put.Put
-mdHeadPrefix p text = do
-    K.putlnS $ p ++ text
-    K.putln
+mdHeadPrefix :: String -> String -> K.MixText
+mdHeadPrefix p text =
+    K.mixLine (K.mixString p <> K.mixString text <> K.mix1)
+     <> K.mixHard
 
 
 -- ----------------------  Status
 
-mdStatus :: K.CmdLine -> Exit.ExitCode -> Put.Put
-mdStatus cmdline exit = do
-  K.putlnS $ emp cmdline ++ " " ++ statusString exit ++ "."
-  K.putln
+mdStatus :: K.CmdLine -> Exit.ExitCode -> K.MixText
+mdStatus cmdline exit =
+    K.mixLine (emp cmdline <> K.mix1 <> mixExit exit <> K.mixBs ".")
+     <> K.mixHard
 
-emp :: String -> String
-emp s = "**" ++ s ++ "**"
+emp :: String -> K.MixText
+emp s = K.mixBracket ast ast $ K.mixString s where
+    ast = K.mixBs "**"
 
-statusString :: Exit.ExitCode -> String
-statusString (Exit.ExitSuccess)   = "exits successfully"
-statusString (Exit.ExitFailure n) = "fails with status " ++ show n
+mixExit :: Exit.ExitCode -> K.MixText
+mixExit (Exit.ExitSuccess)   = K.mixBs "exits successfully"
+mixExit (Exit.ExitFailure n) = K.mixBs "fails with status " <> K.mixShow n
 
 
 -- ----------------------  Link
 
-mdFileItem :: K.FileDirs -> Put.Put
-mdFileItem file = K.putlnS item where
-    item = "- [" ++ K.slashSpace path ++ "](" ++ K.slash path ++ ")"
+mdFileItem :: K.FileDirs -> K.MixText
+mdFileItem file = K.mixLine item where
     path = K.fileDirs file
+    item = K.mixBs "- ["
+           <> K.mixString (K.slashSpace path)
+           <> K.mixBs "]("
+           <> K.mixString (K.slash path)
+           <> K.mixBs ")"
 
 -- ----------------------  Block
 
-mdBlock :: Bs.ByteString -> Put.Put
+mdBlock :: K.Bs -> K.MixText
 mdBlock bs
-    | Bs.null bs        = K.putEmpty
+    | Bs.null bs        = K.mixEmpty
     | Bc.all isText bs  = mdBlockText bs
     | otherwise         = mdBinary bs
 
 isText :: Char -> Bool
 isText c = Ch.isPrint c || Ch.isSpace c
 
-mdBlockText :: Bs.ByteString -> Put.Put
-mdBlockText bs = do
-  putFence
-  putlnBsText `mapM_` Bc.lines bs
-  putFence
-  K.putln
+mdBlockText :: K.Bs -> K.MixText
+mdBlockText bs = K.mixLine $
+    mixFence
+    <> (mconcat $ mixBsLine <$> Bc.lines bs)
+    <> mixFence
 
-putlnBsText :: Bs.ByteString -> Put.Put
-putlnBsText bs = K.putlnBs $ Bc.filter (/= '\r') bs
+mixBsLine :: K.Bs -> K.MixText
+mixBsLine bs = K.mixLine $ K.mixBs $ Bc.filter (/= '\r') bs
 
-putFence :: Put.Put
-putFence = K.putlnBs "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+mixFence :: K.MixText
+mixFence = K.mixLine $ K.mixBs "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
-mdBinary :: Bs.ByteString -> Put.Put
-mdBinary bs =
-    let n = show $ Bs.length bs
-    in K.putlnS $ "Binary data of " ++ n ++ " bytes"
+mdBinary :: K.Bs -> K.MixText
+mdBinary bs = K.mixLine $
+    K.mixBs "Binary data of "
+    <> K.mixShow (Bs.length bs)
+    <> K.mixBs " bytes"
 

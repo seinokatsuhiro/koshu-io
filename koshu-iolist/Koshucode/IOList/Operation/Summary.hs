@@ -5,8 +5,9 @@ module Koshucode.IOList.Operation.Summary
  ( opFind, opSummary, opGrand,
  ) where
 
-import qualified Data.Binary.Put                    as Put
 import qualified Data.ByteString.Lazy               as Bz
+
+import qualified Koshucode.Baala.Base               as K
 
 import qualified Koshucode.IOList.IOList            as K
 import qualified Koshucode.IOList.Param             as K
@@ -91,17 +92,17 @@ opGrand p@K.Param {..} scripts =
 
 save :: String -> String -> Maybe K.FileDirs -> K.StatusCount -> [K.Status] -> IO ()
 save total title script cnt ss =
-  saveFile total script cnt $ do
+  saveFile total script cnt $
     K.mdHead 1 title
-    mapM_ K.mdFileItem $ K.mdFileDirs `map` K.statusFiles ss
+    K.<> mconcat (K.mdFileItem <$> K.mdFileDirs <$> K.statusFiles ss)
 
-saveFile :: String -> Maybe K.FileDirs -> K.StatusCount -> Put.Put -> IO ()
+saveFile :: String -> Maybe K.FileDirs -> K.StatusCount -> K.MixText -> IO ()
 saveFile total (Nothing) cnt _ = putStrLn $ countText total cnt
 saveFile total (Just script) cnt doc =
   do putStr    $ countText total cnt
      putStr    $ " on "
      putStrLn  $ K.slashSpace $ K.fileDirs script
-     Bz.writeFile (K.mdFilePath script) (Put.runPut doc)
+     Bz.writeFile (K.mdFilePath script) (K.mixToBz K.crlfBreak doc)
 
 countText :: String -> K.StatusCount -> String
 countText total cnt =

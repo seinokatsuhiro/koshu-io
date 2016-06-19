@@ -22,8 +22,7 @@ instance K.Numbering File where
     numbering a = a
 
 instance K.ToMarkdown File where
-    toMarkdown (File _ bs) = do
-        K.mdBlock bs
+    toMarkdown (File _ bs) = K.mdBlock bs
 
 -- | Read and craete 'File' if it exists.
 maybeFile :: FilePath -> IO (Maybe File)

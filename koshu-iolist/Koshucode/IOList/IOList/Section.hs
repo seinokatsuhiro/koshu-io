@@ -10,7 +10,7 @@ module Koshucode.IOList.IOList.Section
    Numbering (..), numberingRoot,
  ) where
 
-import qualified Data.Binary.Put                    as Put
+import qualified Koshucode.Baala.Base               as K
 import qualified Koshucode.IOList.IOList.Markdown   as K
 
 
@@ -65,11 +65,11 @@ numberingRoot a = snd $ numbering ([], a)
 -- ----------------------  ToMarkdown
 
 instance (K.ToMarkdown a) => K.ToMarkdown (Section a) where
-    toMarkdown Section {..} = do
+    toMarkdown Section {..} =
       sectionNumberText sectionLevel sectionNumber sectionTitle
-      K.toMarkdown sectionBody
+      K.<> K.toMarkdown sectionBody
 
-sectionNumberText :: Int -> [Int] -> String -> Put.Put
+sectionNumberText :: Int -> [Int] -> String -> K.MixText
 sectionNumberText lv []    text  = K.mdHead lv text
 sectionNumberText lv [a]   text  = K.mdHead lv $ show a ++ ". " ++ text
 sectionNumberText lv [a,b] text  = K.mdHead lv $ show a ++ "." ++ show b ++ " " ++ text
