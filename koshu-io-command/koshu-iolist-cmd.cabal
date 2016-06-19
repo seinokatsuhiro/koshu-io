@@ -1,4 +1,4 @@
-name:                koshu-io-command
+name:                koshu-iolist-cmd
 version:             0.1.0.0
 synopsis:            A command-line tool for I/O lists
 -- description:         
