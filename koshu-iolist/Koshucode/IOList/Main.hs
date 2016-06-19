@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Main (koshuIO) where
+module Koshucode.IOList.Main (iolistMain) where
 
 import qualified System.Environment              as Env
 
@@ -10,9 +10,9 @@ import qualified Koshucode.IOList.Param         as K
 import qualified Koshucode.IOList.Status        as K
 import qualified Koshucode.IOList.Utility       as K
 
--- | Main function for @koshu-io@ command.
-koshuIO :: IO ()
-koshuIO = do
+-- | Main function for @iolist@ command.
+iolistMain :: IO ()
+iolistMain = do
   args  <- Env.getArgs
   p     <- K.param
   K.command $ K.operate (setupParam p) args
