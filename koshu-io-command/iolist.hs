@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Koshucode.KoshuIO.Main
+import Koshucode.IOList.Main
 
 main :: IO ()
 main = koshuIO
