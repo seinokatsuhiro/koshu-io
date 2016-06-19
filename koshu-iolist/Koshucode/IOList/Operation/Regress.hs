@@ -59,7 +59,7 @@ regress p@K.Param {..} bz2 retry = do
 prompt :: K.Param -> K.Bz -> IO K.Status -> IO K.Status
 prompt p bz2 retry = loop where
     loop = do
-      putStr "Type [retry] [update] [skip] [exit] or [help]: "
+      putStr "Type [retry] [update] [skip] [quit] or [help]: "
       IO.hFlush IO.stdout
       res <- getLine
       case K.assocPrefix res operations of
@@ -70,7 +70,7 @@ prompt p bz2 retry = loop where
         [ K.assoc "retry"  $ retry
         , K.assoc "update" $ update p bz2
         , K.assoc "skip"   $ skip p
-        , K.assoc "exit"   $ exit p
+        , K.assoc "quit"   $ quit p
         , K.assoc ""       $ loop
         ]
 
@@ -79,10 +79,10 @@ skip p = do
   putStrLn ""
   return $ status p K.StatusSkip
 
-exit :: K.Param -> IO K.Status
-exit p = do
+quit :: K.Param -> IO K.Status
+quit p = do
   putStrLn ""
-  putStrLn "Exit on differences"
+  putStrLn "Quit on differences"
   return $ status p K.StatusQuit
 
 status :: K.Param -> K.StatusResult -> K.Status
