@@ -20,7 +20,7 @@ import qualified Koshucode.KoshuIO.Operation.Run     as K
 -- | Operation for @find@
 opFind :: K.Operation
 opFind _ scripts =
-  do K.forFilesRec_ K.dirActionVisible p "."
+  do K.forFilesRec_ "." K.dirActionVisible p
      return K.StatusMessage
   where
     p f | isScript     = putStrLn $ K.slash $ K.fileDirs f

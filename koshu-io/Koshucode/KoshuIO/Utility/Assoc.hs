@@ -9,6 +9,7 @@ module Koshucode.KoshuIO.Utility.Assoc
 
 import qualified Data.List as List
 
+-- | Association of string and something.
 data Assoc a = Assoc
     { assocKey    :: String
     , assocValue  :: a
@@ -23,9 +24,11 @@ instance Eq (Assoc a) where
 instance Ord (Assoc a) where
     compare (Assoc n1 _) (Assoc n2 _) = compare n1 n2
 
+-- | Create assoc.
 assoc :: String -> a -> Assoc a
-assoc n a = Assoc n a
+assoc = Assoc
 
+-- | Find assoc by key.
 assocLookup :: String -> [Assoc a] -> Maybe a
 assocLookup n = loop where
     loop [] = Nothing
@@ -33,6 +36,7 @@ assocLookup n = loop where
         | n == n'    = Just a
         | otherwise  = loop ops
 
+-- | Find assocs by prefix matching.
 assocPrefix :: String -> [Assoc a] -> [Assoc a]
 assocPrefix n = loop [] where
     loop ys [] = reverse ys

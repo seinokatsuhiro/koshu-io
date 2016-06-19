@@ -79,7 +79,7 @@ globArg arg = do
 
 globFile :: K.CmdArg -> IO [K.CmdArg]
 globFile arg = do
-  files <- K.listDir "."
+  files <- K.listDirectory "."
   return $ filter (Glob.match $ Glob.compile arg) files
 
 -- | Splitted arguments

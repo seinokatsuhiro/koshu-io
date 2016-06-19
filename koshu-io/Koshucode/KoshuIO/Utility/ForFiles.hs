@@ -12,15 +12,11 @@ module Koshucode.KoshuIO.Utility.ForFiles
    -- * File action
    FileAction,
    fileActionNull, fileActionPrint,
-   -- * Utility
-   directoryOrNot,
-   listDir,
-   omitHidden,
  ) where
 
-import qualified Data.List                            as List
 import qualified System.Directory                     as Dir
 import qualified Koshucode.KoshuIO.Utility.FileDirs   as K
+import qualified Koshucode.KoshuIO.Utility.FilePath   as K
 
 
 -- ----------------------  driver
@@ -33,7 +29,7 @@ type FileAction a = K.FileDirs -> IO a
 
 forFiles :: FilePath -> ([FilePath] -> IO a) -> IO a
 forFiles path act = do
-  files <- listDir path
+  files <- K.listDirectory path
   Dir.withCurrentDirectory path $ act files
 
 forFilesUp :: forall a. FilePath -> DirAction ([a], [FilePath]) -> IO [a]
@@ -41,23 +37,18 @@ forFilesUp p act = loop $ K.fromFileName p where
     loop :: K.FileDirs -> IO [a]
     loop up = forFiles (K.fileName up) $ \files -> do
          (rs, fs) <- act up files
-         (ds, _)  <- directoryOrNot fs
-         rs'      <- loop `mapM` map (`K.filePush` up) ds
+         (ds, _)  <- K.directoryOrNot fs
+         rs'      <- loop `mapM` map (K.filePushTo up) ds
          return $ rs ++ concat rs'
 
-forFilesRec :: FilePath -> DirFilter -> FileAction a -> IO [a]
-forFilesRec p dir file = loop [] p where
-    loop up path = do
-      let f = K.FileDirs path up
-      exist <- Dir.doesDirectoryExist path
-      case exist of
-        False -> do r <- file f
-                    return [r]
-        True  -> forFiles path $ \files -> do
-                    let up' = path : up
-                    files' <- dir f files
-                    rs     <- loop up' `mapM` files'
-                    return $ concat rs
+forFilesRec :: forall a. FilePath -> DirFilter -> FileAction a -> IO [a]
+forFilesRec p dir file = forFilesUp p act where
+    act :: DirAction ([a], [FilePath])
+    act up files = do
+      files' <- dir up files
+      (ds, fs) <- K.directoryOrNot files'
+      rs <- file `mapM` map (K.filePushTo up) fs
+      return (rs, ds)
 
 forFilesRec_ :: FilePath -> DirFilter -> FileAction a -> IO ()
 forFilesRec_ path dir file = forFilesRec path dir file >> return ()
@@ -72,7 +63,7 @@ dirActionAll :: DirFilter
 dirActionAll _ = return
 
 dirActionVisible :: DirFilter
-dirActionVisible = dirActionBy omitHidden
+dirActionVisible = dirActionBy K.omitHidden
 
 dirActionBy :: ([FilePath] -> [FilePath]) -> DirFilter
 dirActionBy keep _ files = return $ keep files
@@ -88,32 +79,4 @@ fileActionNull _ = return ()
 fileActionPrint :: FileAction ()
 fileActionPrint file = do
   putStrLn $ unwords (reverse $ K.fileName file : K.fileRevDirs file)
-
-
--- ----------------------  utility
-
-directoryOrNot :: [FilePath] -> IO ([FilePath], [FilePath])
-directoryOrNot = loop where
-    loop [] = return ([], [])
-    loop (p:ps) = do (ds, fs) <- loop ps
-                     exist <- Dir.doesDirectoryExist p
-                     case exist of
-                       True  -> return (p:ds, fs)
-                       False -> return (ds, p:fs)
-
-listDir :: FilePath -> IO [FilePath]
-listDir path =
-    do fs <- Dir.listDirectory path
-       return $ List.sort fs
-
-omitHidden :: [FilePath] -> [FilePath]
-omitHidden = filter (not . isHidden)
-
-isHidden :: String -> Bool
-isHidden ('.' : _ : _)  = True
-isHidden _              = False
-
--- omitDots :: [FilePath] -> [FilePath]
--- omitDots ps = filter notDots ps where
---     notDots s = s /= "." && s /= ".."
 
