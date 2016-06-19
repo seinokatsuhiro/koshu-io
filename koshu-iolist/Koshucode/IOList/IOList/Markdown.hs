@@ -49,7 +49,7 @@ mdHead _ = mdHeadPrefix "####"
 
 mdHeadPrefix :: String -> String -> K.MixText
 mdHeadPrefix p text =
-    K.mixLine (K.mixString p <> K.mixString text <> K.mix1)
+    K.mixLine (K.mixString p <> K.mix1 <> K.mixString text)
      <> K.mixHard
 
 
