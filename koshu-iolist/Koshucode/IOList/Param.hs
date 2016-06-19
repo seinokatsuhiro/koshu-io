@@ -49,7 +49,7 @@ param = do
                , paramOperations    = []
                , paramDateTime      = Just date
                , paramTitle         = Just "I/O List"
-               , paramAuthor        = Just "koshu-io"
+               , paramAuthor        = Just "iolist"
                , paramGrand         = Nothing
                , paramSummary       = Nothing
                , paramScript        = Nothing
@@ -89,47 +89,3 @@ mdFilePath = K.fileName . mdFileDirs
 type Operation = K.Operation' Param
 --type Operation' param = param -> Maybe FilePath -> [String] -> IO K.Status
 
--- operate :: Operation
--- operate _ _ [] = help
--- operate p file (name : args) =
---     case K.assocPrefix name $ paramOperations p of
---       [K.Assoc _ op] -> op p file args
---       []             -> help
---       ops            -> ambiguous $ map K.assocKey ops
-
--- ambiguous :: [String] -> IO K.Status
--- ambiguous ns = do
---   putStrLn "MESSAGE"
---   putStrLn "  Ambiguous operation"
---   putStrLn ""
---   putStrLn "DETAIL"
---   mapM_ putName ns
---   putStrLn ""
---   return K.StatusMessage
-
--- putName :: String -> IO ()
--- putName n = do
---   putStr "  "
---   putStrLn n
-
--- help :: IO K.Status
--- help = do
---   putStrLn "DESCRIPTION"
---   putStrLn "  Generate and compare I/O list"
---   putStrLn ""
---   putStrLn "USAGE"
---   putStrLn "  koshu-io OPERATION"
---   putStrLn ""
---   putStrLn "OPERATION"
---   putStrLn "  command       CMD ARG ..."
---   putStrLn "  command       CMD ARG ... // FILE ..."
---   putStrLn "  find          IOLIST ..."
---   putStrLn "  grand-init    IOLIST"
---   putStrLn "  run           IOLIST"
---   putStrLn "  summary-init  IOLIST"
---   putStrLn ""
---   putStrLn "OPERATION in IOLIST script"
---   putStrLn "  grand         IOLIST ..."
---   putStrLn "  summary       IOLIST ..."
---   putStrLn ""
---   return K.StatusMessage

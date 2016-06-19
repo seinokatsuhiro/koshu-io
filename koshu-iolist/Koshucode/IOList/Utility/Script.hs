@@ -64,8 +64,8 @@ readScript up path = do
     True   -> do s <- readFile path
                  let fd = K.filePush path up
                  return $ case commands $ lines s of
-                   [cmd] | beginWith ["koshu-io", "grand"]   cmd -> GrandScript   fd cmd
-                         | beginWith ["koshu-io", "summary"] cmd -> SummaryScript fd cmd
+                   [cmd] | beginWith ["iolist", "grand"]   cmd -> GrandScript   fd cmd
+                         | beginWith ["iolist", "summary"] cmd -> SummaryScript fd cmd
                    cmds -> CommandScript fd cmds
     
 commands :: [String] -> [String]

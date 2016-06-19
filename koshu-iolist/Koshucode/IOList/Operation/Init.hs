@@ -22,7 +22,7 @@ initOf name _ []         = initHelp name
 initOf name _ (file : _) = do
   exist <- Dir.doesFileExist file
   case exist of
-    False -> do writeFile file $ unlines ["koshu-io " ++ name ++ " " ++ file]
+    False -> do writeFile file $ unlines ["iolist " ++ name ++ " " ++ file]
                 return K.StatusMessage
     True  -> do putStrLn $ "ABORT -- File already exists: " ++ file
                 return K.StatusMessage
@@ -30,7 +30,7 @@ initOf name _ (file : _) = do
 initHelp :: String -> IO K.Status
 initHelp name = do
   putStrLn $ "USAGE"
-  putStrLn $ "  koshu-io " ++ name ++ "-init IOLIST"
+  putStrLn $ "  iolist " ++ name ++ "-init IOLIST"
   putStrLn $ ""
   return K.StatusMessage
 

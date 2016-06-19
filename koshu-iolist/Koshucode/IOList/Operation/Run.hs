@@ -35,7 +35,7 @@ helpRun = do
   putStrLn "  Require one filename"
   putStrLn ""
   putStrLn "USAGE"
-  putStrLn "  koshu-io run IOFILE"
+  putStrLn "  iolist run IOFILE"
   putStrLn ""
   return K.StatusMessage
 
