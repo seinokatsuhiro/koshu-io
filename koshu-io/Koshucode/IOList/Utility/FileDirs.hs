@@ -1,7 +1,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Utility.FileDirs
+module Koshucode.IOList.Utility.FileDirs
  ( -- * Data
    RevDirs, FileDirs (..),
    fileDirs, fileDirsPath,
@@ -10,8 +10,8 @@ module Koshucode.KoshuIO.Utility.FileDirs
    changeExtension,
  ) where
 
-import qualified System.FilePath.Posix     as Posix
-import qualified Koshucode.KoshuIO.Utility.FilePath     as K
+import qualified System.FilePath.Posix                 as Posix
+import qualified Koshucode.IOList.Utility.FilePath     as K
 
 -- | Reversed names of directories
 type RevDirs = [FilePath]

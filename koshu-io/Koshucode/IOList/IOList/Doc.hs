@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.IOList.Doc
+module Koshucode.IOList.IOList.Doc
  ( -- * Command list
    Doc (..),
    Command (..),
@@ -12,15 +12,15 @@ module Koshucode.KoshuIO.IOList.Doc
    ArgProcess (..),
  ) where
 
-import qualified Data.ByteString                    as Bs
-import qualified Data.Binary.Put                    as Put
-import qualified System.Exit                        as Exit
+import qualified Data.ByteString                   as Bs
+import qualified Data.Binary.Put                   as Put
+import qualified System.Exit                       as Exit
 
-import qualified Koshucode.KoshuIO.Param            as K
-import qualified Koshucode.KoshuIO.Utility          as K
-import qualified Koshucode.KoshuIO.IOList.File      as K
-import qualified Koshucode.KoshuIO.IOList.Markdown  as K
-import qualified Koshucode.KoshuIO.IOList.Section   as K
+import qualified Koshucode.IOList.Param            as K
+import qualified Koshucode.IOList.Utility          as K
+import qualified Koshucode.IOList.IOList.File      as K
+import qualified Koshucode.IOList.IOList.Markdown  as K
+import qualified Koshucode.IOList.IOList.Section   as K
 
 
 -- ----------------------  Command list

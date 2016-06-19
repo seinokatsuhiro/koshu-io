@@ -1,13 +1,13 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Operation.Init
+module Koshucode.IOList.Operation.Init
  ( opSummaryInit,
    opGrandInit,
  ) where
 
-import qualified System.Directory              as Dir
-import qualified Koshucode.KoshuIO.Param       as K
-import qualified Koshucode.KoshuIO.Status      as K
+import qualified System.Directory             as Dir
+import qualified Koshucode.IOList.Param       as K
+import qualified Koshucode.IOList.Status      as K
 
 -- | Operation for @summary-init@
 opSummaryInit :: K.Operation

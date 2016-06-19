@@ -1,14 +1,14 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Main (koshuIO) where
+module Koshucode.IOList.Main (koshuIO) where
 
 import qualified System.Environment              as Env
 
-import qualified Koshucode.KoshuIO.Operate       as K
-import qualified Koshucode.KoshuIO.Operation     as K
-import qualified Koshucode.KoshuIO.Param         as K
-import qualified Koshucode.KoshuIO.Status        as K
-import qualified Koshucode.KoshuIO.Utility       as K
+import qualified Koshucode.IOList.Operate       as K
+import qualified Koshucode.IOList.Operation     as K
+import qualified Koshucode.IOList.Param         as K
+import qualified Koshucode.IOList.Status        as K
+import qualified Koshucode.IOList.Utility       as K
 
 -- | Main function for @koshu-io@ command.
 koshuIO :: IO ()

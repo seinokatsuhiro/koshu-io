@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.IOList.Markdown
+module Koshucode.IOList.IOList.Markdown
  ( ToMarkdown (..),
    mdTitle,
    mdHead,
@@ -11,14 +11,14 @@ module Koshucode.KoshuIO.IOList.Markdown
    mdBlock,
  ) where
 
-import qualified Data.ByteString              as Bs
-import qualified Data.ByteString.Char8        as Bc
-import qualified Data.Binary.Put              as Put
-import qualified Data.Char                    as Ch
-import qualified System.Exit                  as Exit
+import qualified Data.ByteString             as Bs
+import qualified Data.ByteString.Char8       as Bc
+import qualified Data.Binary.Put             as Put
+import qualified Data.Char                   as Ch
+import qualified System.Exit                 as Exit
 
-import qualified Koshucode.KoshuIO.Param      as K
-import qualified Koshucode.KoshuIO.Utility    as K
+import qualified Koshucode.IOList.Param      as K
+import qualified Koshucode.IOList.Utility    as K
 
 
 -- ----------------------  ToMarkdown

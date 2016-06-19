@@ -2,14 +2,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Operate
+module Koshucode.IOList.Operate
  ( Operation',
    GetOperations (..),
    operate,
  ) where
 
-import qualified Koshucode.KoshuIO.Utility     as K
-import qualified Koshucode.KoshuIO.Status      as K
+import qualified Koshucode.IOList.Utility     as K
+import qualified Koshucode.IOList.Status      as K
 
 -- | Common type for command-line operation.
 type Operation' p = p                  -- ^ Parameter

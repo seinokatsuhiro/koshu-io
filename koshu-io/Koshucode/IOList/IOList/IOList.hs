@@ -2,22 +2,22 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.IOList.IOList
+module Koshucode.IOList.IOList.IOList
  ( ioList,
  ) where
 
-import           Data.List                          ((\\))
-import qualified System.FilePath.Glob               as Glob
-import qualified System.Process.ByteString          as Proc
-import qualified Data.ByteString.Lazy               as Bz
-import qualified Data.Binary.Put                    as Put
+import           Data.List                         ((\\))
+import qualified System.FilePath.Glob              as Glob
+import qualified System.Process.ByteString         as Proc
+import qualified Data.ByteString.Lazy              as Bz
+import qualified Data.Binary.Put                   as Put
 
-import qualified Koshucode.KoshuIO.Param            as K
-import qualified Koshucode.KoshuIO.Utility          as K
-import qualified Koshucode.KoshuIO.IOList.Doc       as K
-import qualified Koshucode.KoshuIO.IOList.File      as K
-import qualified Koshucode.KoshuIO.IOList.Markdown  as K
-import qualified Koshucode.KoshuIO.IOList.Section   as K
+import qualified Koshucode.IOList.Param            as K
+import qualified Koshucode.IOList.Utility          as K
+import qualified Koshucode.IOList.IOList.Doc       as K
+import qualified Koshucode.IOList.IOList.File      as K
+import qualified Koshucode.IOList.IOList.Markdown  as K
+import qualified Koshucode.IOList.IOList.Section   as K
 
 -- | Create I/O list as lazy bytestring.
 ioList :: K.Param -> [K.CmdLine] -> IO Bz.ByteString

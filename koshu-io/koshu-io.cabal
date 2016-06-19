@@ -15,33 +15,33 @@ cabal-version:       >= 1.10
 library
   -- Modules exported by the library.
   exposed-modules:
-         Koshucode.KoshuIO.IOList
-       , Koshucode.KoshuIO.IOList.Doc
-       , Koshucode.KoshuIO.IOList.File
-       , Koshucode.KoshuIO.IOList.IOList
-       , Koshucode.KoshuIO.IOList.Markdown
-       , Koshucode.KoshuIO.IOList.Section
+         Koshucode.IOList.IOList
+       , Koshucode.IOList.IOList.Doc
+       , Koshucode.IOList.IOList.File
+       , Koshucode.IOList.IOList.IOList
+       , Koshucode.IOList.IOList.Markdown
+       , Koshucode.IOList.IOList.Section
 
-       , Koshucode.KoshuIO.Main
+       , Koshucode.IOList.Main
 
-       , Koshucode.KoshuIO.Operation
-       , Koshucode.KoshuIO.Operation.Diff
-       , Koshucode.KoshuIO.Operation.Init
-       , Koshucode.KoshuIO.Operation.Regress
-       , Koshucode.KoshuIO.Operation.Run
-       , Koshucode.KoshuIO.Operation.Summary
+       , Koshucode.IOList.Operation
+       , Koshucode.IOList.Operation.Diff
+       , Koshucode.IOList.Operation.Init
+       , Koshucode.IOList.Operation.Regress
+       , Koshucode.IOList.Operation.Run
+       , Koshucode.IOList.Operation.Summary
 
-       , Koshucode.KoshuIO.Operate
-       , Koshucode.KoshuIO.Param
-       , Koshucode.KoshuIO.Status
+       , Koshucode.IOList.Operate
+       , Koshucode.IOList.Param
+       , Koshucode.IOList.Status
 
-       , Koshucode.KoshuIO.Utility
-       , Koshucode.KoshuIO.Utility.Assoc
-       , Koshucode.KoshuIO.Utility.FileDirs
-       , Koshucode.KoshuIO.Utility.FilePath
-       , Koshucode.KoshuIO.Utility.ForFiles
-       , Koshucode.KoshuIO.Utility.Put
-       , Koshucode.KoshuIO.Utility.Script
+       , Koshucode.IOList.Utility
+       , Koshucode.IOList.Utility.Assoc
+       , Koshucode.IOList.Utility.FileDirs
+       , Koshucode.IOList.Utility.FilePath
+       , Koshucode.IOList.Utility.ForFiles
+       , Koshucode.IOList.Utility.Put
+       , Koshucode.IOList.Utility.Script
 
   -- Modules included in this library but not exported.
   --other-modules:       

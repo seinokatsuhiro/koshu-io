@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Utility.Put
+module Koshucode.IOList.Utility.Put
  ( puts,
    putEmpty,
    putBs, putS,

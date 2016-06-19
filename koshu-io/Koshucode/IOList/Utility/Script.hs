@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Utility.Script
+module Koshucode.IOList.Utility.Script
  ( CmdLine, CmdName, CmdArg,
    Script (..), scriptFileDirs,
    getScript, getCommandScript, getSummaryScript,
@@ -12,7 +12,7 @@ import qualified Data.List         as List
 import qualified Data.Char         as Ch
 import qualified System.Directory  as Dir
 
-import qualified Koshucode.KoshuIO.Utility.FileDirs  as K
+import qualified Koshucode.IOList.Utility.FileDirs  as K
 
 -- | Command-line string
 type CmdLine = String

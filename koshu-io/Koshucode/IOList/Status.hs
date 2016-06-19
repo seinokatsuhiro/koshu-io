@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Status
+module Koshucode.IOList.Status
  ( Status (..),
    StatusResult (..),
    StatusCount (..),
@@ -10,9 +10,9 @@ module Koshucode.KoshuIO.Status
    try,
  ) where
 
-import qualified Data.Maybe                   as Maybe
-import qualified System.Exit                  as Exit
-import qualified Koshucode.KoshuIO.Utility    as K
+import qualified Data.Maybe                  as Maybe
+import qualified System.Exit                 as Exit
+import qualified Koshucode.IOList.Utility    as K
 
 -- | Exit status.
 data Status

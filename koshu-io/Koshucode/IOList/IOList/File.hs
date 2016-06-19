@@ -1,16 +1,16 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.IOList.File
+module Koshucode.IOList.IOList.File
  ( File (..), maybeFile,
    fileSection, fileSections,
  ) where
 
-import qualified Data.ByteString                    as Bs
-import qualified Data.Maybe                         as Maybe
-import qualified System.Directory                   as Dir
+import qualified Data.ByteString                   as Bs
+import qualified Data.Maybe                        as Maybe
+import qualified System.Directory                  as Dir
 
-import qualified Koshucode.KoshuIO.IOList.Markdown  as K
-import qualified Koshucode.KoshuIO.IOList.Section   as K
+import qualified Koshucode.IOList.IOList.Markdown  as K
+import qualified Koshucode.IOList.IOList.Section   as K
 
 
 data File = File 

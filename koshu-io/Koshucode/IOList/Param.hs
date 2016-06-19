@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Param
+module Koshucode.IOList.Param
  ( Param (..),
    Operation,
    param,
@@ -14,11 +14,11 @@ module Koshucode.KoshuIO.Param
    mdFilePath,
  ) where
 
-import qualified Data.Dates                       as D
-import qualified System.Environment               as Env
+import qualified Data.Dates                      as D
+import qualified System.Environment              as Env
 
-import qualified Koshucode.KoshuIO.Operate        as K
-import qualified Koshucode.KoshuIO.Utility        as K
+import qualified Koshucode.IOList.Operate        as K
+import qualified Koshucode.IOList.Utility        as K
 
 
 -- --------------------------------------------  Param

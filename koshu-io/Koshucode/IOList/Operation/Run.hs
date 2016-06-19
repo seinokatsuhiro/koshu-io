@@ -1,21 +1,21 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Operation.Run
+module Koshucode.IOList.Operation.Run
  ( opCommand, opRun,
    runScriptFile,
    runScriptContent,
  ) where
 
-import qualified Data.ByteString.Lazy                 as Bz
-import qualified System.IO                            as IO
+import qualified Data.ByteString.Lazy                as Bz
+import qualified System.IO                           as IO
 
-import qualified Koshucode.KoshuIO.IOList             as K
-import qualified Koshucode.KoshuIO.Operate            as K
-import qualified Koshucode.KoshuIO.Param              as K
-import qualified Koshucode.KoshuIO.Status             as K
-import qualified Koshucode.KoshuIO.Utility            as K
-import qualified Koshucode.KoshuIO.Operation.Regress  as K
+import qualified Koshucode.IOList.IOList             as K
+import qualified Koshucode.IOList.Operate            as K
+import qualified Koshucode.IOList.Param              as K
+import qualified Koshucode.IOList.Status             as K
+import qualified Koshucode.IOList.Utility            as K
+import qualified Koshucode.IOList.Operation.Regress  as K
 
 -- | Operation for @command@
 opCommand :: K.Operation

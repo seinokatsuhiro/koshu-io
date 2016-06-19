@@ -2,19 +2,19 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Operation.Regress
+module Koshucode.IOList.Operation.Regress
  ( saveOrRegress,
    save, regress,
  ) where
 
-import qualified Data.ByteString.Lazy                as Bz
-import qualified System.Directory                    as Dir
-import qualified System.IO                           as IO
+import qualified Data.ByteString.Lazy               as Bz
+import qualified System.Directory                   as Dir
+import qualified System.IO                          as IO
 
-import qualified Koshucode.KoshuIO.Param             as K
-import qualified Koshucode.KoshuIO.Status            as K
-import qualified Koshucode.KoshuIO.Utility           as K
-import qualified Koshucode.KoshuIO.Operation.Diff    as K
+import qualified Koshucode.IOList.Param             as K
+import qualified Koshucode.IOList.Status            as K
+import qualified Koshucode.IOList.Utility           as K
+import qualified Koshucode.IOList.Operation.Diff    as K
 
 
 -- --------------------------------------------  Save I/O list

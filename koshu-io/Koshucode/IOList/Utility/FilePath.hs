@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.KoshuIO.Utility.FilePath
+module Koshucode.IOList.Utility.FilePath
  ( -- * Pure functions
    slash, slashSpace,
    dropDot, omitHidden, isHiddenPath,
