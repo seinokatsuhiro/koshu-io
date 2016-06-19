@@ -7,8 +7,8 @@ module Koshucode.IOList.Operation.Run
    runScriptContent,
  ) where
 
-import qualified Data.ByteString.Lazy                as Bz
 import qualified System.IO                           as IO
+import qualified Koshucode.Baala.Base                as K
 
 import qualified Koshucode.IOList.IOList             as K
 import qualified Koshucode.IOList.Operate            as K
@@ -20,8 +20,8 @@ import qualified Koshucode.IOList.Operation.Regress  as K
 -- | Operation for @command@
 opCommand :: K.Operation
 opCommand p args = do
-  bz <- K.ioList p [unwords args]
-  Bz.hPut IO.stdout bz
+  mx <- K.ioList p [unwords args]
+  K.hPutMix K.crlfBreak IO.stdout mx
   return K.StatusMessage
 
 -- | Operation for @run@
@@ -55,5 +55,5 @@ runIOList :: K.Param -> [K.CmdLine] -> IO K.Status
 runIOList p cmds = retry where
     retry = do
       io <- K.ioList p cmds
-      K.saveOrRegress p io retry
+      K.saveOrRegress p (K.mixToBz K.crlfBreak io) retry
 

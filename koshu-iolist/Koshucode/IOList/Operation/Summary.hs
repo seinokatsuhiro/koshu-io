@@ -5,9 +5,7 @@ module Koshucode.IOList.Operation.Summary
  ( opFind, opSummary, opGrand,
  ) where
 
-import qualified Data.ByteString.Lazy               as Bz
 import qualified Koshucode.Baala.Base               as K
-
 import qualified Koshucode.IOList.IOList            as K
 import qualified Koshucode.IOList.Param             as K
 import qualified Koshucode.IOList.Status            as K
@@ -101,7 +99,7 @@ saveFile total (Just script) cnt doc =
   do putStr    $ countText total cnt
      putStr    $ " on "
      putStrLn  $ K.slashSpace $ K.fileDirs script
-     Bz.writeFile (K.mdFilePath script) (K.mixToBz K.crlfBreak doc)
+     K.writeMix K.crlfBreak (K.mdFilePath script) doc
 
 countText :: String -> K.StatusCount -> String
 countText total cnt =

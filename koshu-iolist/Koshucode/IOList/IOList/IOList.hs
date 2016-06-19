@@ -20,10 +20,10 @@ import qualified Koshucode.IOList.IOList.Markdown  as K
 import qualified Koshucode.IOList.IOList.Section   as K
 
 -- | Create I/O list as lazy bytestring.
-ioList :: K.Param -> [K.CmdLine] -> IO K.Bz
+ioList :: K.Param -> [K.CmdLine] -> IO K.MixText
 ioList p@K.Param {..} cmdlines = do
     cs <- mapM run cmdlines
-    return $ K.mixToBz K.crlfBreak $ ioListMix p cs
+    return $ ioListMix p cs
 
 ioListMix :: K.Param -> [K.Section K.Command] -> K.MixText
 ioListMix p@K.Param {..} cs = do
