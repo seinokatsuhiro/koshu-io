@@ -34,7 +34,7 @@ operate p (name : args) =
 -- | Print ambiguous message.
 ambiguous :: [String] -> IO K.Status
 ambiguous ns =
-    do K.putMixLines K.lfBreak msg
+    do K.putMixLines K.crlfBreak msg
        return K.StatusMessage
     where
       msg = [ K.mixBs "MESSAGE"
@@ -49,7 +49,7 @@ ambiguous ns =
 -- | Print help message.
 help :: IO K.Status
 help =
-    do K.putMixLines K.lfBreak msg
+    do K.putMixLines K.crlfBreak msg
        return K.StatusMessage
     where
       msg = [ K.mixBs "DESCRIPTION"
