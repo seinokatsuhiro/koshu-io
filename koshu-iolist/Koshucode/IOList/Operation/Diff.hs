@@ -9,13 +9,14 @@ module Koshucode.IOList.Operation.Diff
 import qualified Data.Algorithm.Diff                 as Diff
 import qualified Data.ByteString.Lazy                as Bz
 import qualified Data.ByteString.Lazy.Char8          as Bc
+import qualified Koshucode.Baala.Base                as K
 
 
 -- --------------------------------------------  diff
 
-type Line = (Int, Bz.ByteString)      
+type Line = (Int, K.Bz)
 
-diff :: Bz.ByteString -> Bz.ByteString -> [[Bz.ByteString]]
+diff :: K.Bz -> K.Bz -> [[K.Bz]]
 diff bz1 bz2 =
     let ls1 = diffLine bz1
         ls2 = diffLine bz2
@@ -24,13 +25,13 @@ diff bz1 bz2 =
 compareSnd :: Eq a => (x, a) -> (y, a) -> Bool
 compareSnd x y = snd x == snd y
 
-diffLine :: Bz.ByteString -> [Line]
+diffLine :: K.Bz -> [Line]
 diffLine bz = zip [1..] $ Bc.split '\n' bz
 
 
 -- --------------------------------------------  report
 
-report :: [Diff.Diff [Line]] -> [[Bz.ByteString]]
+report :: [Diff.Diff [Line]] -> [[K.Bz]]
 report [] = []
 report (Diff.First x  : Diff.Second y :  xs)
                             = changed x y : report xs
@@ -38,18 +39,18 @@ report (Diff.First x  : xs) = deleted x   : report xs
 report (Diff.Second x : xs) = added x     : report xs
 report (Diff.Both _ _ : xs) =               report xs
 
-changed :: [Line] -> [Line] -> [Bz.ByteString]
+changed :: [Line] -> [Line] -> [K.Bz]
 changed del add = "Changed " : deladd where
     deladd = map (liner " - ") del
           ++ map (liner " + ") add
 
-deleted :: [Line] -> [Bz.ByteString]
+deleted :: [Line] -> [K.Bz]
 deleted del = "Deleted " : map (liner " - ") del
 
-added :: [Line] -> [Bz.ByteString]
+added :: [Line] -> [K.Bz]
 added add = "Added " : map (liner " + ") add
 
-liner :: Bz.ByteString -> Line -> Bz.ByteString
+liner :: K.Bz -> Line -> K.Bz
 liner prefix (n, bz) = prefix `Bz.append` Bc.pack (lineNumber n)
                               `Bz.append` bz
 

@@ -6,7 +6,6 @@ module Koshucode.IOList.Operation.Summary
  ) where
 
 import qualified Data.ByteString.Lazy               as Bz
-
 import qualified Koshucode.Baala.Base               as K
 
 import qualified Koshucode.IOList.IOList            as K

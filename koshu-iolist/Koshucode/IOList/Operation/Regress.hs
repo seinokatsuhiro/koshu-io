@@ -10,6 +10,7 @@ module Koshucode.IOList.Operation.Regress
 import qualified Data.ByteString.Lazy               as Bz
 import qualified System.Directory                   as Dir
 import qualified System.IO                          as IO
+import qualified Koshucode.Baala.Base               as K
 
 import qualified Koshucode.IOList.Param             as K
 import qualified Koshucode.IOList.Status            as K
@@ -20,7 +21,7 @@ import qualified Koshucode.IOList.Operation.Diff    as K
 -- --------------------------------------------  Save I/O list
 
 -- | Save I/O list at first time, do regression test at second time.
-saveOrRegress :: K.Param -> Bz.ByteString -> IO K.Status -> IO K.Status
+saveOrRegress :: K.Param -> K.Bz -> IO K.Status -> IO K.Status
 saveOrRegress p@K.Param {..} bz retry = do
   exist <- Dir.doesFileExist paramOutput
   case exist of
@@ -28,14 +29,14 @@ saveOrRegress p@K.Param {..} bz retry = do
     True   -> regress p bz retry   -- second time
 
 -- | Save I/O list into markdown file.
-save :: K.Param -> Bz.ByteString -> IO K.Status
+save :: K.Param -> K.Bz -> IO K.Status
 save p = saveWith (status p K.StatusSave) p
 
-update :: K.Param -> Bz.ByteString -> IO K.Status
+update :: K.Param -> K.Bz -> IO K.Status
 update p bz = do putStrLn ""
                  saveWith (status p K.StatusUpdate) p bz
 
-saveWith :: K.Status -> K.Param -> Bz.ByteString -> IO K.Status
+saveWith :: K.Status -> K.Param -> K.Bz -> IO K.Status
 saveWith st K.Param {..} bz = do
   Bz.writeFile paramOutput bz
   return st
@@ -44,7 +45,7 @@ saveWith st K.Param {..} bz = do
 -- --------------------------------------------  Regression test
 
 -- | Do regression test.
-regress :: K.Param -> Bz.ByteString -> IO K.Status -> IO K.Status
+regress :: K.Param -> K.Bz -> IO K.Status -> IO K.Status
 regress p@K.Param {..} bz2 retry = do
   bz1 <- Bz.readFile paramOutput
   case K.diff bz1 bz2 of
@@ -55,7 +56,7 @@ regress p@K.Param {..} bz2 retry = do
               bzPutln ""
               prompt p bz2 retry
 
-prompt :: K.Param -> Bz.ByteString -> IO K.Status -> IO K.Status
+prompt :: K.Param -> K.Bz -> IO K.Status -> IO K.Status
 prompt p bz2 retry = loop where
     loop = do
       putStr "Type [retry] [update] [skip] [exit] or [help]: "
@@ -99,7 +100,7 @@ help = do
   putStrLn "  quit      quit this command"
   putStrLn "  "
 
-bzPutln :: Bz.ByteString -> IO ()
+bzPutln :: K.Bz -> IO ()
 bzPutln s = do
   Bz.hPut IO.stdout s
   Bz.hPut IO.stdout "\n"

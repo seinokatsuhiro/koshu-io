@@ -8,14 +8,15 @@ module Koshucode.IOList.IOList.File
 import qualified Data.ByteString                   as Bs
 import qualified Data.Maybe                        as Maybe
 import qualified System.Directory                  as Dir
+import qualified Koshucode.Baala.Base              as K
 
 import qualified Koshucode.IOList.IOList.Markdown  as K
 import qualified Koshucode.IOList.IOList.Section   as K
 
 
 data File = File 
-    { filePath     :: FilePath         -- ^ Path of file
-    , fileContent  :: Bs.ByteString    -- ^ Content of file
+    { filePath     :: FilePath     -- ^ Path of file
+    , fileContent  :: K.Bs         -- ^ Content of file
     } deriving (Show, Eq, Ord)
 
 instance K.Numbering File where
