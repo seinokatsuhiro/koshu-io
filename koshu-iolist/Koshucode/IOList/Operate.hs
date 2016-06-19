@@ -8,6 +8,8 @@ module Koshucode.IOList.Operate
    operate,
  ) where
 
+import Data.Monoid ((<>))
+import qualified Koshucode.Baala.Base         as K
 import qualified Koshucode.IOList.Utility     as K
 import qualified Koshucode.IOList.Status      as K
 
@@ -29,38 +31,42 @@ operate p (name : args) =
       []             -> help
       ops            -> ambiguous $ map K.assocKey ops
 
+-- | Print ambiguous message.
 ambiguous :: [String] -> IO K.Status
-ambiguous ns = do
-  putStrLn "MESSAGE"
-  putStrLn "  Ambiguous operation"
-  putStrLn ""
-  putStrLn "DETAIL"
-  mapM_ putName ns
-  putStrLn ""
-  return K.StatusMessage
+ambiguous ns =
+    do K.putMixLines K.lfBreak msg
+       return K.StatusMessage
+    where
+      msg = [ K.mixBs "MESSAGE"
+            , K.mixBs "  Ambiguous operation"
+            , K.mixBs ""
+            , K.mixBs "DETAIL"
+            , mconcat $ name <$> ns
+            ]
 
-putName :: String -> IO ()
-putName n = do
-  putStr "  "
-  putStrLn n
+      name n = (K.mix2 <> K.mix n <> K.mixHard)
 
+-- | Print help message.
 help :: IO K.Status
-help = do
-  putStrLn "DESCRIPTION"
-  putStrLn "  Generate and compare I/O list"
-  putStrLn ""
-  putStrLn "USAGE"
-  putStrLn "  (Typical) koshu-io run IOLIST"
-  putStrLn "  (General) koshu-io OPERATION"
-  putStrLn ""
-  putStrLn "OPERATION"
-  putStrLn "  command       CMD ARG ..."
-  putStrLn "  command       CMD ARG ... // FILE ..."
-  putStrLn "  find          IOLIST ..."
-  putStrLn "  grand         IOLIST ..."
-  putStrLn "  grand-init    IOLIST"
-  putStrLn "  run           IOLIST"
-  putStrLn "  summary       IOLIST ..."
-  putStrLn "  summary-init  IOLIST"
-  putStrLn ""
-  return K.StatusMessage
+help =
+    do K.putMixLines K.lfBreak msg
+       return K.StatusMessage
+    where
+      msg = [ K.mixBs "DESCRIPTION"
+            , K.mixBs "  Generate and compare I/O list"
+            , K.mixBs ""
+            , K.mixBs "USAGE"
+            , K.mixBs "  (Typical) iolist run IOLIST"
+            , K.mixBs "  (General) iolist OPERATION"
+            , K.mixBs ""
+            , K.mixBs "OPERATION"
+            , K.mixBs "  command       CMD ARG ..."
+            , K.mixBs "  command       CMD ARG ... // FILE ..."
+            , K.mixBs "  find          IOLIST ..."
+            , K.mixBs "  grand         IOLIST ..."
+            , K.mixBs "  grand-init    IOLIST"
+            , K.mixBs "  run           IOLIST"
+            , K.mixBs "  summary       IOLIST ..."
+            , K.mixBs "  summary-init  IOLIST"
+            , K.mixBs ""
+            ]
