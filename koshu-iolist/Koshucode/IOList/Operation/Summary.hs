@@ -16,7 +16,7 @@ import qualified Koshucode.IOList.Operation.Run     as K
 -- ----------------------  find
 
 -- | Operation for @find@
-opFind :: K.Operation
+opFind :: K.Op
 opFind _ scripts =
   do K.forFilesRec_ "." K.dirActionVisible p
      return K.StatusMessage
@@ -29,7 +29,7 @@ opFind _ scripts =
 -- ----------------------  summary
 
 -- | Operation for @summary@
-opSummary :: K.Operation
+opSummary :: K.Op
 opSummary p@K.Param {..} scripts =
     do K.putHead '-' summaryTitle
        ss <- K.forFilesUp "." action
@@ -61,7 +61,7 @@ putFile prefix f = do
 
 -- ----------------------  grand summary
 
-opGrand :: K.Operation
+opGrand :: K.Op
 opGrand p@K.Param {..} scripts =
     do K.putHead '=' grandTitle
        ss <- K.forFilesUp "." action

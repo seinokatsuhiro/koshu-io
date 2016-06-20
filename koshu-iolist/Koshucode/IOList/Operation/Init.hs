@@ -10,14 +10,14 @@ import qualified Koshucode.IOList.Param       as K
 import qualified Koshucode.IOList.Status      as K
 
 -- | Operation for @summary-init@
-opSummaryInit :: K.Operation
+opSummaryInit :: K.Op
 opSummaryInit = initOf "summary"
 
 -- | Operation for @grand-init@
-opGrandInit :: K.Operation
+opGrandInit :: K.Op
 opGrandInit = initOf "grand"
 
-initOf :: String -> K.Operation
+initOf :: String -> K.Op
 initOf name _ []         = initHelp name
 initOf name _ (file : _) = do
   exist <- Dir.doesFileExist file

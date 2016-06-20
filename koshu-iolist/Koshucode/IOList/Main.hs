@@ -1,6 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Main (iolistMain) where
+module Koshucode.IOList.Main
+  ( iolistMain ) where
 
 import qualified System.Environment              as Env
 
@@ -24,7 +25,7 @@ setupParam p =
       , K.paramOperations  = operations
       }
 
-operations :: [K.Assoc K.Operation]
+operations :: [K.Assoc K.Op]
 operations = 
     [ K.assoc "cmd"           K.opCmd
     , K.assoc "find"          K.opFind

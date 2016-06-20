@@ -3,7 +3,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
 module Koshucode.IOList.Operate
- ( Operation',
+ ( Operation,
    GetOperations (..),
    operate,
  ) where
@@ -14,16 +14,16 @@ import qualified Koshucode.IOList.Utility     as K
 import qualified Koshucode.IOList.Status      as K
 
 -- | Common type for command-line operation.
-type Operation' p = p                  -- ^ Parameter
-                 -> [K.CmdArg]         -- ^ Command-line arguments
-                 -> IO K.Status        -- ^ Result
+type Operation p = p                  -- ^ Parameter
+                -> [K.CmdArg]         -- ^ Command-line arguments
+                -> IO K.Status        -- ^ Result
 
 -- | Function for getting list of operations.
 class GetOperations p where
-    getOperations :: p -> [K.Assoc (Operation' p)]
+    getOperations :: p -> [K.Assoc (Operation p)]
 
 -- | Execute command-line operation.
-operate :: (GetOperations p) => Operation' p
+operate :: (GetOperations p) => Operation p
 operate _ [] = help
 operate p (name : args) =
     case K.assocPrefix name $ getOperations p of

@@ -3,13 +3,15 @@
 {-# OPTIONS_GHC -Wall #-}
 
 module Koshucode.IOList.Param
- ( Param (..),
-   Operation,
+ ( -- * Type
+   Param (..),
+   Op,
+
+   -- * Function
    param,
-   paramYmd,
    paramSetGrand,
    paramSetSummary,
-   paramSetScript,
+   paramSetCommand,
    mdFileDirs,
    mdFilePath,
  ) where
@@ -23,10 +25,14 @@ import qualified Koshucode.IOList.Utility        as K
 
 -- --------------------------------------------  Param
 
+-- | Operation type for I/O list.
+type Op = K.Operation Param
+
+-- | Parameter for I/O list.
 data Param = Param
   { paramProg           :: String               -- ^ Program name
   , paramArgs           :: [String]             -- ^ Command-line arguments
-  , paramOperations     :: [K.Assoc Operation]  -- ^ Operations
+  , paramOperations     :: [K.Assoc Op]         -- ^ Operations
   , paramDateTime       :: Maybe D.DateTime     -- ^ Invocation date-time
   , paramTitle          :: Maybe String         -- ^ Title of I/O list
   , paramAuthor         :: Maybe String         -- ^ Author of I/O list
@@ -40,6 +46,7 @@ data Param = Param
 instance K.GetOperations Param where
     getOperations = paramOperations
 
+-- | Get parameter for current process.
 param :: IO Param
 param = do
   prog <- Env.getProgName
@@ -58,36 +65,34 @@ param = do
                , paramOutput        = "IOLIST.md"
                }
                  
-paramYmd :: Param -> Maybe String
-paramYmd Param {..} = fmap paramYmd' paramDateTime
+-- paramYmd :: Param -> Maybe String
+-- paramYmd Param {..} = fmap paramYmd' paramDateTime
 
-paramYmd' :: D.DateTime -> String
-paramYmd' dt = ymd where
-    ymd = show y ++ "-" ++ show m ++ "-" ++ show d
-    y   = D.year  dt
-    m   = D.month dt
-    d   = D.day   dt
+-- paramYmd' :: D.DateTime -> String
+-- paramYmd' dt = ymd where
+--     ymd = show y ++ "-" ++ show m ++ "-" ++ show d
+--     y   = D.year  dt
+--     m   = D.month dt
+--     d   = D.day   dt
 
+-- | Set grand summary script.
 paramSetGrand :: Param -> K.FileDirs -> Param
 paramSetGrand p f = p { paramGrand = Just f }
 
+-- | Set summary script.
 paramSetSummary :: Param -> K.FileDirs -> Param
 paramSetSummary p f = p { paramSummary = Just f }
 
-paramSetScript :: Param -> K.FileDirs -> Param
-paramSetScript p f =
+-- | Set command script.
+paramSetCommand :: Param -> K.FileDirs -> Param
+paramSetCommand p f =
     p { paramCommand  = Just f
       , paramOutput   = mdFilePath f }
 
+-- | Output markdown file.
 mdFileDirs :: K.FileDirs -> K.FileDirs
 mdFileDirs = K.changeExtension "md"
 
+-- | Path of output markdown.
 mdFilePath :: K.FileDirs -> FilePath
 mdFilePath = K.fileName . mdFileDirs
-
-
--- --------------------------------------------  Operation
-
-type Operation = K.Operation' Param
---type Operation' param = param -> Maybe FilePath -> [String] -> IO K.Status
-

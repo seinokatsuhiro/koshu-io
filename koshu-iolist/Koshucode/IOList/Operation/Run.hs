@@ -18,14 +18,14 @@ import qualified Koshucode.IOList.Utility            as K
 import qualified Koshucode.IOList.Operation.Regress  as K
 
 -- | Operation for @command@
-opCmd :: K.Operation
+opCmd :: K.Op
 opCmd p args = do
   mx <- K.ioList p [unwords args]
   K.hPutMix K.crlfBreak IO.stdout mx
   return K.StatusMessage
 
 -- | Operation for @run@
-opRun :: K.Operation
+opRun :: K.Op
 opRun p args =
     case args of
       [file] -> run file
@@ -54,7 +54,7 @@ runScriptFile p f = do
 runScriptContent :: K.Param -> K.Script -> IO K.Status
 runScriptContent p script =
   case script of
-    K.CommandScript fd cmds -> runIOList (K.paramSetScript  p fd)  cmds
+    K.CommandScript fd cmds -> runIOList (K.paramSetCommand p fd) cmds
     K.SummaryScript fd cmd  -> K.operate (K.paramSetSummary p fd) $ tail $ words cmd
     K.GrandScript   fd cmd  -> K.operate (K.paramSetGrand   p fd) $ tail $ words cmd
 
