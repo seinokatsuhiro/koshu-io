@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Assoc
+module Koshucode.IOList.Parts.Assoc
  ( Assoc (..),
    assoc,
    assocLookup,

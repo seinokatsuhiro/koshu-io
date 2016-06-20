@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Script
+module Koshucode.IOList.Parts.Script
  ( CmdLine, CmdName, CmdArg,
    Script (..),
    scriptFileDirs,

@@ -6,8 +6,7 @@ module Koshucode.IOList.Op.Init
  ) where
 
 import qualified System.Directory             as Dir
-import qualified Koshucode.IOList.Param       as K
-import qualified Koshucode.IOList.Status      as K
+import qualified Koshucode.IOList.Parts       as K
 
 -- | Operation for @summary-init@
 opSummaryInit :: K.Op

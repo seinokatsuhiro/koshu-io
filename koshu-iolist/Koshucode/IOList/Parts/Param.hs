@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Param
+module Koshucode.IOList.Parts.Param
  ( -- * Type
    Param (..),
    Op,
@@ -19,9 +19,9 @@ module Koshucode.IOList.Param
 import qualified Data.Dates                      as D
 import qualified System.Environment              as Env
 
-import qualified Koshucode.IOList.Assoc          as K
-import qualified Koshucode.IOList.File           as K
-import qualified Koshucode.IOList.Operation      as K
+import qualified Koshucode.IOList.File             as K
+import qualified Koshucode.IOList.Parts.Assoc      as K
+import qualified Koshucode.IOList.Parts.Operation  as K
 
 
 -- --------------------------------------------  Param

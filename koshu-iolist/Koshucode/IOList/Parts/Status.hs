@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Status
+module Koshucode.IOList.Parts.Status
  ( Status (..),
    StatusResult (..),
    StatusCount (..),

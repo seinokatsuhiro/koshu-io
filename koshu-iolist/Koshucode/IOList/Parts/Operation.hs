@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Operation
+module Koshucode.IOList.Parts.Operation
  ( Operation,
    GetOperations (..),
    operate,
@@ -10,9 +10,9 @@ module Koshucode.IOList.Operation
 
 import Data.Monoid ((<>))
 import qualified Koshucode.Baala.Base         as K
-import qualified Koshucode.IOList.Assoc       as K
-import qualified Koshucode.IOList.Script      as K
-import qualified Koshucode.IOList.Status      as K
+import qualified Koshucode.IOList.Parts.Assoc       as K
+import qualified Koshucode.IOList.Parts.Script      as K
+import qualified Koshucode.IOList.Parts.Status      as K
 
 -- | Common type for command-line operation.
 type Operation p = p                  -- ^ Parameter

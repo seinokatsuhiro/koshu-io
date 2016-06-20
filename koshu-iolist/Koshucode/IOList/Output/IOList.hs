@@ -10,11 +10,8 @@ import           Data.List                         ((\\))
 import qualified System.FilePath.Glob              as Glob
 import qualified System.Process.ByteString         as Proc
 import qualified Koshucode.Baala.Base              as K
-
 import qualified Koshucode.IOList.File             as K
-import qualified Koshucode.IOList.Param            as K
-import qualified Koshucode.IOList.Script           as K
-
+import qualified Koshucode.IOList.Parts            as K
 import qualified Koshucode.IOList.Output.Doc       as K
 import qualified Koshucode.IOList.Output.File      as K
 import qualified Koshucode.IOList.Output.Markdown  as K

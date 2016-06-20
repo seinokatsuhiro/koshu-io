@@ -8,9 +8,7 @@ module Koshucode.IOList.Op.Summary
 import qualified Koshucode.Baala.Base               as K
 import qualified Koshucode.IOList.File              as K
 import qualified Koshucode.IOList.Output            as K
-import qualified Koshucode.IOList.Param             as K
-import qualified Koshucode.IOList.Script            as K
-import qualified Koshucode.IOList.Status            as K
+import qualified Koshucode.IOList.Parts             as K
 import qualified Koshucode.IOList.Op.Run            as K
 import qualified Koshucode.IOList.Op.Put            as K
 
