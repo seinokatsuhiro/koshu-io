@@ -1,7 +1,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Operation.Run
+module Koshucode.IOList.Op.Run
  ( opCmd, opRun,
    runScriptFile,
    runScriptContent,
@@ -11,11 +11,11 @@ import qualified System.IO                           as IO
 import qualified Koshucode.Baala.Base                as K
 
 import qualified Koshucode.IOList.Output             as K
-import qualified Koshucode.IOList.Operate            as K
+import qualified Koshucode.IOList.Operation          as K
 import qualified Koshucode.IOList.Param              as K
 import qualified Koshucode.IOList.Status             as K
 import qualified Koshucode.IOList.Utility            as K
-import qualified Koshucode.IOList.Operation.Regress  as K
+import qualified Koshucode.IOList.Op.Regress         as K
 
 -- | Operation for @command@
 opCmd :: K.Op

@@ -1,7 +1,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Operation.Summary
+module Koshucode.IOList.Op.Summary
  ( opFind, opSummary, opGrand,
  ) where
 
@@ -10,7 +10,7 @@ import qualified Koshucode.IOList.Output            as K
 import qualified Koshucode.IOList.Param             as K
 import qualified Koshucode.IOList.Status            as K
 import qualified Koshucode.IOList.Utility           as K
-import qualified Koshucode.IOList.Operation.Run     as K
+import qualified Koshucode.IOList.Op.Run            as K
 
 
 -- ----------------------  find

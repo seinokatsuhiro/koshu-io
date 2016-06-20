@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Operation.Regress
+module Koshucode.IOList.Op.Regress
  ( saveOrRegress,
    save, regress,
  ) where
@@ -15,7 +15,7 @@ import qualified Koshucode.Baala.Base               as K
 import qualified Koshucode.IOList.Param             as K
 import qualified Koshucode.IOList.Status            as K
 import qualified Koshucode.IOList.Utility           as K
-import qualified Koshucode.IOList.Operation.Diff    as K
+import qualified Koshucode.IOList.Op.Diff           as K
 
 
 -- --------------------------------------------  Save I/O list

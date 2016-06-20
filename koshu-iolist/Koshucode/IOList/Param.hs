@@ -19,7 +19,7 @@ module Koshucode.IOList.Param
 import qualified Data.Dates                      as D
 import qualified System.Environment              as Env
 
-import qualified Koshucode.IOList.Operate        as K
+import qualified Koshucode.IOList.Operation      as K
 import qualified Koshucode.IOList.Utility        as K
 
 
@@ -32,7 +32,7 @@ type Op = K.Operation Param
 data Param = Param
   { paramProg           :: String               -- ^ Program name
   , paramArgs           :: [String]             -- ^ Command-line arguments
-  , paramOperations     :: [K.Assoc Op]         -- ^ Operations
+  , paramOps            :: [K.Assoc Op]         -- ^ Operations
   , paramDateTime       :: Maybe D.DateTime     -- ^ Invocation date-time
   , paramTitle          :: Maybe String         -- ^ Title of I/O list
   , paramAuthor         :: Maybe String         -- ^ Author of I/O list
@@ -44,7 +44,10 @@ data Param = Param
   } deriving (Show, Eq, Ord)
 
 instance K.GetOperations Param where
-    getOperations = paramOperations
+    getOperations = paramOps
+
+instance K.GetArgs Param where
+    getArgs = paramArgs
 
 -- | Get parameter for current process.
 param :: IO Param
@@ -54,7 +57,7 @@ param = do
   date <- D.getCurrentDateTime
   return Param { paramProg          = prog
                , paramArgs          = args
-               , paramOperations    = []
+               , paramOps           = []
                , paramDateTime      = Just date
                , paramTitle         = Just "I/O List"
                , paramAuthor        = Just "iolist"

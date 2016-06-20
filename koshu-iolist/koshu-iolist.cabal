@@ -24,14 +24,14 @@ library
 
        , Koshucode.IOList.Main
 
-       , Koshucode.IOList.Operation
-       , Koshucode.IOList.Operation.Diff
-       , Koshucode.IOList.Operation.Init
-       , Koshucode.IOList.Operation.Regress
-       , Koshucode.IOList.Operation.Run
-       , Koshucode.IOList.Operation.Summary
+       , Koshucode.IOList.Op
+       , Koshucode.IOList.Op.Diff
+       , Koshucode.IOList.Op.Init
+       , Koshucode.IOList.Op.Regress
+       , Koshucode.IOList.Op.Run
+       , Koshucode.IOList.Op.Summary
 
-       , Koshucode.IOList.Operate
+       , Koshucode.IOList.Operation
        , Koshucode.IOList.Param
        , Koshucode.IOList.Status
 

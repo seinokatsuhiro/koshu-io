@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Operation.Diff
+module Koshucode.IOList.Op.Diff
  ( Line, diff, report,
  ) where
 

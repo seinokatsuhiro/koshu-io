@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Operation.Init
+module Koshucode.IOList.Op.Init
  ( opSummaryInit,
    opGrandInit,
  ) where

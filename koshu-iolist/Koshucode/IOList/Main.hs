@@ -5,8 +5,8 @@ module Koshucode.IOList.Main
 
 import qualified System.Environment              as Env
 
-import qualified Koshucode.IOList.Operate       as K
 import qualified Koshucode.IOList.Operation     as K
+import qualified Koshucode.IOList.Op            as K
 import qualified Koshucode.IOList.Param         as K
 import qualified Koshucode.IOList.Status        as K
 import qualified Koshucode.IOList.Utility       as K
@@ -22,11 +22,11 @@ setupParam :: K.Param -> K.Param
 setupParam p =
     p { K.paramAuthor      = Nothing
       , K.paramDateTime    = Nothing
-      , K.paramOperations  = operations
+      , K.paramOps         = ops
       }
 
-operations :: [K.Assoc K.Op]
-operations = 
+ops :: [K.Assoc K.Op]
+ops = 
     [ K.assoc "cmd"           K.opCmd
     , K.assoc "find"          K.opFind
     , K.assoc "grand"         K.opGrand
