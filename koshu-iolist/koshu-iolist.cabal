@@ -15,12 +15,12 @@ cabal-version:       >= 1.10
 library
   -- Modules exported by the library.
   exposed-modules:
-         Koshucode.IOList.IOList
-       , Koshucode.IOList.IOList.Doc
-       , Koshucode.IOList.IOList.File
-       , Koshucode.IOList.IOList.IOList
-       , Koshucode.IOList.IOList.Markdown
-       , Koshucode.IOList.IOList.Section
+         Koshucode.IOList.Output
+       , Koshucode.IOList.Output.Doc
+       , Koshucode.IOList.Output.File
+       , Koshucode.IOList.Output.IOList
+       , Koshucode.IOList.Output.Markdown
+       , Koshucode.IOList.Output.Section
 
        , Koshucode.IOList.Main
 

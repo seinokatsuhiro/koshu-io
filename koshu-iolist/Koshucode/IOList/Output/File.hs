@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.IOList.File
+module Koshucode.IOList.Output.File
  ( File (..), maybeFile,
    fileSection, fileSections,
  ) where
@@ -10,8 +10,8 @@ import qualified Data.Maybe                        as Maybe
 import qualified System.Directory                  as Dir
 import qualified Koshucode.Baala.Base              as K
 
-import qualified Koshucode.IOList.IOList.Markdown  as K
-import qualified Koshucode.IOList.IOList.Section   as K
+import qualified Koshucode.IOList.Output.Markdown  as K
+import qualified Koshucode.IOList.Output.Section   as K
 
 
 data File = File 

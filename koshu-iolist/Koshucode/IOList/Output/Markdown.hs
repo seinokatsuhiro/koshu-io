@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.IOList.Markdown
+module Koshucode.IOList.Output.Markdown
  ( ToMarkdown (..),
    mdTitle,
    mdHead,

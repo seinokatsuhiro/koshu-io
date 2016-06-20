@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.IOList.IOList
+module Koshucode.IOList.Output.IOList
  ( ioList,
  ) where
 
@@ -14,10 +14,10 @@ import qualified Koshucode.Baala.Base              as K
 
 import qualified Koshucode.IOList.Param            as K
 import qualified Koshucode.IOList.Utility          as K
-import qualified Koshucode.IOList.IOList.Doc       as K
-import qualified Koshucode.IOList.IOList.File      as K
-import qualified Koshucode.IOList.IOList.Markdown  as K
-import qualified Koshucode.IOList.IOList.Section   as K
+import qualified Koshucode.IOList.Output.Doc       as K
+import qualified Koshucode.IOList.Output.File      as K
+import qualified Koshucode.IOList.Output.Markdown  as K
+import qualified Koshucode.IOList.Output.Section   as K
 
 -- | Create I/O list as lazy bytestring.
 ioList :: K.Param -> [K.CmdLine] -> IO K.MixText

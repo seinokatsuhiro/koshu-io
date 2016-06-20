@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.IOList.Doc
+module Koshucode.IOList.Output.Doc
  ( -- * Command list
    Doc (..),
    Command (..),
@@ -18,9 +18,9 @@ import qualified Koshucode.Baala.Base              as K
 
 import qualified Koshucode.IOList.Param            as K
 import qualified Koshucode.IOList.Utility          as K
-import qualified Koshucode.IOList.IOList.File      as K
-import qualified Koshucode.IOList.IOList.Markdown  as K
-import qualified Koshucode.IOList.IOList.Section   as K
+import qualified Koshucode.IOList.Output.File      as K
+import qualified Koshucode.IOList.Output.Markdown  as K
+import qualified Koshucode.IOList.Output.Section   as K
 
 
 -- ----------------------  Command list

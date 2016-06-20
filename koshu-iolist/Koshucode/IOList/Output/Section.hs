@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.IOList.Section
+module Koshucode.IOList.Output.Section
  ( -- * Section
    Section (..), section, subsection,
    sectionUp, sectionDeepen,
@@ -11,7 +11,7 @@ module Koshucode.IOList.IOList.Section
  ) where
 
 import qualified Koshucode.Baala.Base               as K
-import qualified Koshucode.IOList.IOList.Markdown   as K
+import qualified Koshucode.IOList.Output.Markdown   as K
 
 
 -- ----------------------  Section

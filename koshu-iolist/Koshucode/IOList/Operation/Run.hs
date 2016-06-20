@@ -10,7 +10,7 @@ module Koshucode.IOList.Operation.Run
 import qualified System.IO                           as IO
 import qualified Koshucode.Baala.Base                as K
 
-import qualified Koshucode.IOList.IOList             as K
+import qualified Koshucode.IOList.Output             as K
 import qualified Koshucode.IOList.Operate            as K
 import qualified Koshucode.IOList.Param              as K
 import qualified Koshucode.IOList.Status             as K

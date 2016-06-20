@@ -6,7 +6,7 @@ module Koshucode.IOList.Operation.Summary
  ) where
 
 import qualified Koshucode.Baala.Base               as K
-import qualified Koshucode.IOList.IOList            as K
+import qualified Koshucode.IOList.Output            as K
 import qualified Koshucode.IOList.Param             as K
 import qualified Koshucode.IOList.Status            as K
 import qualified Koshucode.IOList.Utility           as K
