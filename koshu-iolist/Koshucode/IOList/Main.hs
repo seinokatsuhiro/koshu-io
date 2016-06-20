@@ -26,7 +26,7 @@ setupParam p =
 
 operations :: [K.Assoc K.Operation]
 operations = 
-    [ K.assoc "command"       K.opCommand
+    [ K.assoc "cmd"           K.opCmd
     , K.assoc "find"          K.opFind
     , K.assoc "grand"         K.opGrand
     , K.assoc "grand-init"    K.opGrandInit

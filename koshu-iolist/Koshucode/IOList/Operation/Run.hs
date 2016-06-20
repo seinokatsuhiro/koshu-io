@@ -2,7 +2,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
 module Koshucode.IOList.Operation.Run
- ( opCommand, opRun,
+ ( opCmd, opRun,
    runScriptFile,
    runScriptContent,
  ) where
@@ -18,8 +18,8 @@ import qualified Koshucode.IOList.Utility            as K
 import qualified Koshucode.IOList.Operation.Regress  as K
 
 -- | Operation for @command@
-opCommand :: K.Operation
-opCommand p args = do
+opCmd :: K.Operation
+opCmd p args = do
   mx <- K.ioList p [unwords args]
   K.hPutMix K.crlfBreak IO.stdout mx
   return K.StatusMessage
