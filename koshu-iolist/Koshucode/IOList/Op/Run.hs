@@ -11,6 +11,7 @@ module Koshucode.IOList.Op.Run
 import qualified System.IO                           as IO
 import qualified Koshucode.Baala.Base                as K
 
+import qualified Koshucode.IOList.File               as K
 import qualified Koshucode.IOList.Output             as K
 import qualified Koshucode.IOList.Operation          as K
 import qualified Koshucode.IOList.Param              as K

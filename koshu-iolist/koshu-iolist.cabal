@@ -15,32 +15,33 @@ cabal-version:       >= 1.10
 library
   -- Modules exported by the library.
   exposed-modules:
-         Koshucode.IOList.Output
+         Koshucode.IOList.Main
+       , Koshucode.IOList.Operation
+       , Koshucode.IOList.Param
+       , Koshucode.IOList.Status
+
+       , Koshucode.IOList.Op
+       , Koshucode.IOList.Op.Diff
+       , Koshucode.IOList.Op.Init
+       , Koshucode.IOList.Op.Put
+       , Koshucode.IOList.Op.Regress
+       , Koshucode.IOList.Op.Run
+       , Koshucode.IOList.Op.Summary
+
+       , Koshucode.IOList.Output
        , Koshucode.IOList.Output.Doc
        , Koshucode.IOList.Output.File
        , Koshucode.IOList.Output.IOList
        , Koshucode.IOList.Output.Markdown
        , Koshucode.IOList.Output.Section
 
-       , Koshucode.IOList.Main
-
-       , Koshucode.IOList.Op
-       , Koshucode.IOList.Op.Diff
-       , Koshucode.IOList.Op.Init
-       , Koshucode.IOList.Op.Regress
-       , Koshucode.IOList.Op.Run
-       , Koshucode.IOList.Op.Summary
-
-       , Koshucode.IOList.Operation
-       , Koshucode.IOList.Param
-       , Koshucode.IOList.Status
+       , Koshucode.IOList.File
+       , Koshucode.IOList.File.FileDirs
+       , Koshucode.IOList.File.FilePath
+       , Koshucode.IOList.File.ForFiles
 
        , Koshucode.IOList.Utility
        , Koshucode.IOList.Utility.Assoc
-       , Koshucode.IOList.Utility.FileDirs
-       , Koshucode.IOList.Utility.FilePath
-       , Koshucode.IOList.Utility.ForFiles
-       , Koshucode.IOList.Utility.Put
        , Koshucode.IOList.Utility.Script
 
   -- Modules included in this library but not exported.

@@ -9,9 +9,9 @@ module Koshucode.IOList.Output.IOList
 import           Data.List                         ((\\))
 import qualified System.FilePath.Glob              as Glob
 import qualified System.Process.ByteString         as Proc
-
 import qualified Koshucode.Baala.Base              as K
 
+import qualified Koshucode.IOList.File             as K
 import qualified Koshucode.IOList.Param            as K
 import qualified Koshucode.IOList.Utility          as K
 import qualified Koshucode.IOList.Output.Doc       as K

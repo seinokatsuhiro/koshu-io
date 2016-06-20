@@ -12,7 +12,7 @@ module Koshucode.IOList.Status
 
 import qualified Data.Maybe                  as Maybe
 import qualified System.Exit                 as Exit
-import qualified Koshucode.IOList.Utility    as K
+import qualified Koshucode.IOList.File       as K
 
 -- | Exit status.
 data Status

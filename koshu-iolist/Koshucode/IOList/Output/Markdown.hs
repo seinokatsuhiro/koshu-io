@@ -18,6 +18,7 @@ import qualified Data.Char                   as Ch
 import qualified System.Exit                 as Exit
 
 import qualified Koshucode.Baala.Base        as K
+import qualified Koshucode.IOList.File       as K
 import qualified Koshucode.IOList.Param      as K
 import qualified Koshucode.IOList.Utility    as K
 
@@ -37,10 +38,12 @@ instance (ToMarkdown a) => ToMarkdown [a] where
 
 -- ----------------------  Heading
 
+-- | Create markdown title.
 mdTitle :: K.Param -> K.MixText
 mdTitle K.Param { K.paramTitle = Nothing } = K.mixEmpty
 mdTitle K.Param { K.paramTitle = Just s }  = K.mixLine $ mdHead 1 s
 
+-- | Create markdown heading.
 mdHead :: Int -> String -> K.MixText
 mdHead 1 = mdHeadPrefix "#"
 mdHead 2 = mdHeadPrefix "##"
@@ -55,6 +58,7 @@ mdHeadPrefix p text =
 
 -- ----------------------  Status
 
+-- | Create exit status markdown segment.
 mdStatus :: K.CmdLine -> Exit.ExitCode -> K.MixText
 mdStatus cmdline exit =
     K.mixLine (emp cmdline <> K.mix1 <> mixExit exit <> K.mixBs ".")
@@ -71,6 +75,7 @@ mixExit (Exit.ExitFailure n) = K.mixBs "fails with status " <> K.mixShow n
 
 -- ----------------------  Link
 
+-- | Create linked file name.
 mdFileItem :: K.FileDirs -> K.MixText
 mdFileItem file = K.mixLine item where
     path = K.fileDirs file
@@ -80,8 +85,10 @@ mdFileItem file = K.mixLine item where
            <> K.mixString (K.slash path)
            <> K.mixBs ")"
 
+
 -- ----------------------  Block
 
+-- | Create file content block.
 mdBlock :: K.Bs -> K.MixText
 mdBlock bs
     | Bs.null bs        = K.mixEmpty

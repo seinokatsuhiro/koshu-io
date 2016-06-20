@@ -2,7 +2,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Utility.ForFiles
+module Koshucode.IOList.File.ForFiles
  ( -- * For files
    forFiles, forFilesRec, forFilesRec_, forFilesPrint,
    forFilesUp,
@@ -15,8 +15,8 @@ module Koshucode.IOList.Utility.ForFiles
  ) where
 
 import qualified System.Directory                    as Dir
-import qualified Koshucode.IOList.Utility.FileDirs   as K
-import qualified Koshucode.IOList.Utility.FilePath   as K
+import qualified Koshucode.IOList.File.FileDirs      as K
+import qualified Koshucode.IOList.File.FilePath      as K
 
 
 -- ----------------------  driver

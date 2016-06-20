@@ -3,7 +3,7 @@
 
 -- | File and directory names.
 
-module Koshucode.IOList.Utility.FileDirs
+module Koshucode.IOList.File.FileDirs
  ( -- * Data
    FileDirs (..), RevDirs,
 
@@ -15,7 +15,7 @@ module Koshucode.IOList.Utility.FileDirs
  ) where
 
 import qualified System.FilePath.Posix                 as Posix
-import qualified Koshucode.IOList.Utility.FilePath     as K
+import qualified Koshucode.IOList.File.FilePath        as K
 
 -- | Reversed names of directories
 type RevDirs = [FilePath]

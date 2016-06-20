@@ -2,7 +2,7 @@
 
 -- | File path utility.
 
-module Koshucode.IOList.Utility.FilePath
+module Koshucode.IOList.File.FilePath
  ( -- * Pure functions
    slash, slashSpace,
    dropDot, omitHidden, isHiddenPath,

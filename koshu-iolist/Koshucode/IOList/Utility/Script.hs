@@ -9,11 +9,11 @@ module Koshucode.IOList.Utility.Script
    readScript,
  ) where
 
-import qualified Data.List         as List
-import qualified Data.Char         as Ch
-import qualified System.Directory  as Dir
+import qualified Data.List              as List
+import qualified Data.Char              as Ch
+import qualified System.Directory       as Dir
 
-import qualified Koshucode.IOList.Utility.FileDirs  as K
+import qualified Koshucode.IOList.File  as K
 
 -- | Command-line string
 type CmdLine = String

@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
-module Koshucode.IOList.Utility.Put
+module Koshucode.IOList.Op.Put
  ( putHead,
  ) where
 
