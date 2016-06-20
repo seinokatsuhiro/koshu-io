@@ -5,7 +5,6 @@
 module Koshucode.IOList.Operation
  ( Operation,
    GetOperations (..),
-   GetArgs (..),
    operate,
  ) where
 
@@ -23,19 +22,14 @@ type Operation p = p                  -- ^ Parameter
 class GetOperations p where
     getOperations :: p -> [K.Assoc (Operation p)]
 
-class GetArgs p where
-    getArgs :: p -> [String]
-
 -- | Execute command-line operation.
-operate :: (GetOperations p, GetArgs p) => Operation p
-operate p _ =
-    case getArgs p of
-      [] -> help
-      name : args ->
-          case K.assocPrefix name $ getOperations p of
-            [K.Assoc _ op] -> op p args
-            []             -> help
-            ops            -> ambiguous $ map K.assocKey ops
+operate :: (GetOperations p) => Operation p
+operate _ [] = help
+operate p (name : args) =
+    case K.assocPrefix name $ getOperations p of
+      [K.Assoc _ op] -> op p args
+      []             -> help
+      ops            -> ambiguous $ map K.assocKey ops
 
 -- | Print ambiguous message.
 ambiguous :: [String] -> IO K.Status

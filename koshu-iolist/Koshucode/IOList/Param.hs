@@ -46,9 +46,6 @@ data Param = Param
 instance K.GetOperations Param where
     getOperations = paramOps
 
-instance K.GetArgs Param where
-    getArgs = paramArgs
-
 -- | Get parameter for current process.
 param :: IO Param
 param = do

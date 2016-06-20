@@ -2,10 +2,11 @@
 
 module Koshucode.IOList.Utility.Script
  ( CmdLine, CmdName, CmdArg,
-   Script (..), scriptFileDirs,
-   getScript, getCommandScript, getSummaryScript,
+   Script (..),
+   scriptFileDirs,
+   getCommandScript,
+   getSummaryScript,
    readScript,
-   beginWith,
  ) where
 
 import qualified Data.List         as List
@@ -24,9 +25,9 @@ type CmdName = String
 type CmdArg = String
 
 data Script
-    = CommandScript K.FileDirs [String]
-    | SummaryScript K.FileDirs String
-    | GrandScript   K.FileDirs String
+    = CommandScript K.FileDirs [String]  -- ^ Command script
+    | SummaryScript K.FileDirs String    -- ^ Summary script
+    | GrandScript   K.FileDirs String    -- ^ Grand summary script
       deriving (Show, Eq, Ord)
 
 scriptFileDirs :: Script -> K.FileDirs

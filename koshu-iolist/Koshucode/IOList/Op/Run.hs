@@ -2,7 +2,8 @@
 {-# OPTIONS_GHC -Wall #-}
 
 module Koshucode.IOList.Op.Run
- ( opCmd, opRun,
+ ( opCmd,
+   opRun,
    runScriptFile,
    runScriptContent,
  ) where
@@ -17,7 +18,7 @@ import qualified Koshucode.IOList.Status             as K
 import qualified Koshucode.IOList.Utility            as K
 import qualified Koshucode.IOList.Op.Regress         as K
 
--- | Operation for @command@
+-- | Operation for @cmd@
 opCmd :: K.Op
 opCmd p args = do
   mx <- K.ioList p [unwords args]
@@ -54,12 +55,12 @@ runScriptFile p f = do
 runScriptContent :: K.Param -> K.Script -> IO K.Status
 runScriptContent p script =
   case script of
-    K.CommandScript fd cmds -> runIOList (K.paramSetCommand p fd) cmds
-    K.SummaryScript fd cmd  -> K.operate (K.paramSetSummary p fd) $ tail $ words cmd
-    K.GrandScript   fd cmd  -> K.operate (K.paramSetGrand   p fd) $ tail $ words cmd
+    K.CommandScript fd cmds -> runCommand (K.paramSetCommand p fd) cmds
+    K.SummaryScript fd cmd  -> K.operate  (K.paramSetSummary p fd) $ tail $ words cmd
+    K.GrandScript   fd cmd  -> K.operate  (K.paramSetGrand   p fd) $ tail $ words cmd
 
-runIOList :: K.Param -> [K.CmdLine] -> IO K.Status
-runIOList p cmds = retry where
+runCommand :: K.Param -> [K.CmdLine] -> IO K.Status
+runCommand p cmds = retry where
     retry = do
       io <- K.ioList p cmds
       K.saveOrRegress p (K.mixToBz K.crlfBreak io) retry

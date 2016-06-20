@@ -3,8 +3,6 @@
 module Koshucode.IOList.Main
   ( iolistMain ) where
 
-import qualified System.Environment              as Env
-
 import qualified Koshucode.IOList.Operation     as K
 import qualified Koshucode.IOList.Op            as K
 import qualified Koshucode.IOList.Param         as K
@@ -13,10 +11,9 @@ import qualified Koshucode.IOList.Utility       as K
 
 -- | Main function for @iolist@ command.
 iolistMain :: IO ()
-iolistMain = do
-  args  <- Env.getArgs
-  p     <- K.param
-  K.command $ K.operate (setupParam p) args
+iolistMain =
+  do p <- K.param
+     K.command $ K.operate (setupParam p) (K.paramArgs p)
 
 setupParam :: K.Param -> K.Param
 setupParam p =
