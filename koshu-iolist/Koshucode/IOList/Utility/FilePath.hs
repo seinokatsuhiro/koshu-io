@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | File path utility.
+
 module Koshucode.IOList.Utility.FilePath
  ( -- * Pure functions
    slash, slashSpace,
@@ -17,21 +19,35 @@ import qualified System.Directory          as Dir
 ----------------------  Pure functions
 
 -- | Join filenames with slash.
+--
+--   >>> slash ["foo", "bar", "baz"]
+--   "foo/bar/baz"
+
 slash :: [FilePath] -> String
 slash = List.intercalate "/"
 
 -- | Join filenames with slash plus space.
+--
+--   >>> slashSpace ["foo", "bar", "baz"]
+--   "foo / bar / baz"
+
 slashSpace :: [FilePath] -> String
-slashSpace = List.intercalate "/ "
+slashSpace = List.intercalate " / "
 
 -- | Drop leading dot.
 dropDot :: [FilePath] -> [FilePath]
 dropDot ("." : ps) = dropDot ps
 dropDot ps         = ps
 
+-- | Omit hidden files.
+--
+--   >>> omitHidden [".foorc", "foo", "bar"]
+--   ["foo", "bar"]
+
 omitHidden :: [FilePath] -> [FilePath]
 omitHidden = filter (not . isHiddenPath)
 
+-- | Test hidden file, i.e., begin with dot and something.
 isHiddenPath :: String -> Bool
 isHiddenPath ('.' : _ : _)  = True
 isHiddenPath _              = False

@@ -1,12 +1,16 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | File and directory names.
+
 module Koshucode.IOList.Utility.FileDirs
  ( -- * Data
-   RevDirs, FileDirs (..),
+   FileDirs (..), RevDirs,
+
+   -- * Functions
+   fromFileName, fromFileNameRevDirs,
    fileDirs, fileDirsPath,
    filePush, filePushTo,
-   fromFileName, fromFileNameRevDirs,
    changeExtension,
  ) where
 
@@ -21,6 +25,14 @@ data FileDirs = FileDirs
     , fileRevDirs  :: RevDirs     -- ^ Reversed names of directories
     } deriving (Show, Eq, Ord)
 
+-- | Construct 'FileDirs' from file name (not include directories).
+fromFileName :: FilePath -> FileDirs
+fromFileName name = FileDirs name []
+
+-- | Construct 'FileDirs' from file name and reversed directories.
+fromFileNameRevDirs :: FilePath -> RevDirs -> FileDirs
+fromFileNameRevDirs = FileDirs
+
 fileDirs :: FileDirs -> [FilePath]
 fileDirs FileDirs {..} = K.dropDot $ reverse $ fileName : fileRevDirs
 
@@ -32,12 +44,6 @@ filePush path fd = FileDirs path (fileName fd : fileRevDirs fd)
 
 filePushTo :: FileDirs -> FilePath -> FileDirs
 filePushTo = flip filePush
-
-fromFileName :: FilePath -> FileDirs
-fromFileName name = FileDirs name []
-
-fromFileNameRevDirs :: FilePath -> RevDirs -> FileDirs
-fromFileNameRevDirs = FileDirs
 
 -- | Change filename extension
 changeExtension :: String -> FileDirs -> FileDirs
