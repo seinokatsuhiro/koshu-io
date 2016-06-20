@@ -19,9 +19,9 @@ module Koshucode.IOList.Param
 import qualified Data.Dates                      as D
 import qualified System.Environment              as Env
 
+import qualified Koshucode.IOList.Assoc          as K
 import qualified Koshucode.IOList.File           as K
 import qualified Koshucode.IOList.Operation      as K
-import qualified Koshucode.IOList.Utility        as K
 
 
 -- --------------------------------------------  Param

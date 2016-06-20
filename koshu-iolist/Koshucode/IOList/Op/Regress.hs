@@ -12,9 +12,9 @@ import qualified System.Directory                   as Dir
 import qualified System.IO                          as IO
 import qualified Koshucode.Baala.Base               as K
 
+import qualified Koshucode.IOList.Assoc             as K
 import qualified Koshucode.IOList.Param             as K
 import qualified Koshucode.IOList.Status            as K
-import qualified Koshucode.IOList.Utility           as K
 import qualified Koshucode.IOList.Op.Diff           as K
 import qualified Koshucode.IOList.Op.Put            as K
 

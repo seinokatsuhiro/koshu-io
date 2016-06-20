@@ -15,10 +15,17 @@ cabal-version:       >= 1.10
 library
   -- Modules exported by the library.
   exposed-modules:
-         Koshucode.IOList.Main
+         Koshucode.IOList.Assoc
+       , Koshucode.IOList.Main
        , Koshucode.IOList.Operation
        , Koshucode.IOList.Param
        , Koshucode.IOList.Status
+       , Koshucode.IOList.Script
+
+       , Koshucode.IOList.File
+       , Koshucode.IOList.File.FileDirs
+       , Koshucode.IOList.File.FilePath
+       , Koshucode.IOList.File.ForFiles
 
        , Koshucode.IOList.Op
        , Koshucode.IOList.Op.Diff
@@ -34,15 +41,6 @@ library
        , Koshucode.IOList.Output.IOList
        , Koshucode.IOList.Output.Markdown
        , Koshucode.IOList.Output.Section
-
-       , Koshucode.IOList.File
-       , Koshucode.IOList.File.FileDirs
-       , Koshucode.IOList.File.FilePath
-       , Koshucode.IOList.File.ForFiles
-
-       , Koshucode.IOList.Utility
-       , Koshucode.IOList.Utility.Assoc
-       , Koshucode.IOList.Utility.Script
 
   -- Modules included in this library but not exported.
   --other-modules:       

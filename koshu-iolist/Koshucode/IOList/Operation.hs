@@ -10,7 +10,8 @@ module Koshucode.IOList.Operation
 
 import Data.Monoid ((<>))
 import qualified Koshucode.Baala.Base         as K
-import qualified Koshucode.IOList.Utility     as K
+import qualified Koshucode.IOList.Assoc       as K
+import qualified Koshucode.IOList.Script      as K
 import qualified Koshucode.IOList.Status      as K
 
 -- | Common type for command-line operation.
