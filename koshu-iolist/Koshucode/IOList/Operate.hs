@@ -65,7 +65,7 @@ help =
             , K.mixBs "  find          IOLIST ..."
             , K.mixBs "  grand         IOLIST ..."
             , K.mixBs "  grand-init    IOLIST"
-            , K.mixBs "  run           IOLIST"
+            , K.mixBs "  run           [IOLIST]"
             , K.mixBs "  summary       IOLIST ..."
             , K.mixBs "  summary-init  IOLIST"
             , K.mixBs ""

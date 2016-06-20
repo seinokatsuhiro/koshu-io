@@ -26,8 +26,13 @@ opCmd p args = do
 
 -- | Operation for @run@
 opRun :: K.Operation
-opRun p [file] = runScriptFile p $ K.fromFileName file
-opRun _ _      = helpRun
+opRun p args =
+    case args of
+      [file] -> run file
+      []     -> run $ K.paramDefault p
+      _      -> helpRun
+    where
+      run file = runScriptFile p $ K.fromFileName file
 
 helpRun :: IO K.Status
 helpRun = do
@@ -35,15 +40,17 @@ helpRun = do
   putStrLn "  Require one filename"
   putStrLn ""
   putStrLn "USAGE"
-  putStrLn "  iolist run IOFILE"
+  putStrLn "  iolist run [IOFILE]"
   putStrLn ""
   return K.StatusMessage
 
+-- | Run I/O script.
 runScriptFile :: K.Param -> K.FileDirs -> IO K.Status
 runScriptFile p f = do
   script <- K.readScript f $ K.fileName f
   runScriptContent p script
 
+-- | Run I/O script.
 runScriptContent :: K.Param -> K.Script -> IO K.Status
 runScriptContent p script =
   case script of

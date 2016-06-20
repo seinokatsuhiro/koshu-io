@@ -86,7 +86,7 @@ quit p = do
   return $ status p K.StatusQuit
 
 status :: K.Param -> K.StatusResult -> K.Status
-status K.Param { paramScript = script } =
+status K.Param { paramCommand = script } =
     case script of
       Just s  -> K.StatusScript s
       Nothing -> error "No script"

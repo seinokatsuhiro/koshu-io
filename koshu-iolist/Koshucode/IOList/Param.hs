@@ -32,7 +32,8 @@ data Param = Param
   , paramAuthor         :: Maybe String         -- ^ Author of I/O list
   , paramGrand          :: Maybe K.FileDirs     -- ^ Grand summary script
   , paramSummary        :: Maybe K.FileDirs     -- ^ Summary script
-  , paramScript         :: Maybe K.FileDirs     -- ^ I/O script
+  , paramCommand        :: Maybe K.FileDirs     -- ^ Command script
+  , paramDefault        :: FilePath             -- ^ Default command script
   , paramOutput         :: FilePath             -- ^ Name of output markdown file
   } deriving (Show, Eq, Ord)
 
@@ -52,7 +53,8 @@ param = do
                , paramAuthor        = Just "iolist"
                , paramGrand         = Nothing
                , paramSummary       = Nothing
-               , paramScript        = Nothing
+               , paramCommand       = Nothing
+               , paramDefault       = "IOLIST"
                , paramOutput        = "IOLIST.md"
                }
                  
@@ -74,7 +76,7 @@ paramSetSummary p f = p { paramSummary = Just f }
 
 paramSetScript :: Param -> K.FileDirs -> Param
 paramSetScript p f =
-    p { paramScript   = Just f
+    p { paramCommand  = Just f
       , paramOutput   = mdFilePath f }
 
 mdFileDirs :: K.FileDirs -> K.FileDirs
