@@ -5,7 +5,7 @@
 module Koshucode.IOList.Output.Markdown
  ( ToMarkdown (..),
    mdTitle,
-   mdHead,
+   mdHead, putHead,
    mdStatus,
    mdFileItem,
    mdBlock,
@@ -53,6 +53,16 @@ mdHeadPrefix :: String -> String -> K.MixText
 mdHeadPrefix p text =
     K.mixLine (K.mixString p <> K.mix1 <> K.mixString text)
      <> K.mixHard
+
+-- | Put string with text line.
+putHead :: Char -> String -> IO ()
+putHead c text = do
+  putStrLn text
+  putStrLn $ headLine c
+  putStrLn ""
+
+headLine :: Char -> String
+headLine = replicate 70
 
 
 -- ----------------------  Status

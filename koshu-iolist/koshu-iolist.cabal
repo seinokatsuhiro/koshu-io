@@ -25,7 +25,6 @@ library
        , Koshucode.IOList.Op
        , Koshucode.IOList.Op.Diff
        , Koshucode.IOList.Op.Init
-       , Koshucode.IOList.Op.Put
        , Koshucode.IOList.Op.Regress
        , Koshucode.IOList.Op.Run
        , Koshucode.IOList.Op.Summary

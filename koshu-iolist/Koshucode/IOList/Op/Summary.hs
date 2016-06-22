@@ -10,7 +10,6 @@ import qualified Koshucode.IOList.File              as K
 import qualified Koshucode.IOList.Output            as K
 import qualified Koshucode.IOList.Parts             as K
 import qualified Koshucode.IOList.Op.Run            as K
-import qualified Koshucode.IOList.Op.Put            as K
 
 
 -- ----------------------  find
