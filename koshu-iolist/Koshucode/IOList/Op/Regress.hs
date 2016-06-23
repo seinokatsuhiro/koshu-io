@@ -86,7 +86,7 @@ quit p = do
 status :: K.Param -> K.StatusResult -> K.Status
 status K.Param { paramCommand = script } =
     case script of
-      Just s  -> K.StatusScript s
+      Just s  -> K.StatusCommand s
       Nothing -> error "No script"
 
 help :: IO ()
