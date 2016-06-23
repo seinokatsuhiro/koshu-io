@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | I/O list stuffs.
+
 module Koshucode.IOList.Parts
  ( module Koshucode.IOList.Parts.Assoc,
    module Koshucode.IOList.Parts.Operation,

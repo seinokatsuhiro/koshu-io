@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Create I/O script.
+
 module Koshucode.IOList.Op.Init
  ( opSummaryInit,
    opGrandInit,
@@ -8,11 +10,11 @@ module Koshucode.IOList.Op.Init
 import qualified System.Directory             as Dir
 import qualified Koshucode.IOList.Parts       as K
 
--- | Operation for @summary-init@
+-- | @summary-init@ -- Create summary script.
 opSummaryInit :: K.Op
 opSummaryInit = initOf "summary"
 
--- | Operation for @grand-init@
+-- | @grand-init@ -- Create grand summary script.
 opGrandInit :: K.Op
 opGrandInit = initOf "grand"
 

@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Command operations.
+
 module Koshucode.IOList.Op
  ( module Koshucode.IOList.Op.Init,
    module Koshucode.IOList.Op.Run,

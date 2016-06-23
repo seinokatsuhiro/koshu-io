@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | I/O list document.
+
 module Koshucode.IOList.Output.Doc
  ( -- * Command list
    Doc (..),
@@ -31,6 +33,7 @@ data Doc = Doc
     , docCommand  :: [K.Section Command]
     } deriving (Show, Eq, Ord)
 
+-- | Command in I/O list.
 data Command
     = NoCommand
       -- ^ Empty command.

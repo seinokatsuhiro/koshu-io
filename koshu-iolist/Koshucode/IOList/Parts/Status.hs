@@ -40,6 +40,7 @@ data StatusCount = StatusCount
     , statusSkip     :: Int    -- ^ Number of skipped lists.
     } deriving (Show, Ord, Eq)
 
+-- | Extract file.
 statusFiles :: [Status] -> [K.FileDirs]
 statusFiles = Maybe.mapMaybe f where
     f (StatusCommand  file _)    = Just file
@@ -63,11 +64,15 @@ statusCount ss = StatusCount total update skip where
     update = length $ filter (== StatusUpdate) rs
     skip   = length $ filter (== StatusSkip)   rs
 
+-- --------------------------------------------
+
+-- | Run operation and exit process.
 command :: IO Status -> IO ()
 command body =
     do _ <- try body
        Exit.exitWith Exit.ExitSuccess
 
+-- | Run operation.
 try :: IO Status -> IO Status
 try body =
     do ok <- body

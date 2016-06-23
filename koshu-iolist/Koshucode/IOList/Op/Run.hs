@@ -1,6 +1,8 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Run I/O list.
+
 module Koshucode.IOList.Op.Run
  ( opCmd,
    opRun,
@@ -17,14 +19,14 @@ import qualified Koshucode.IOList.Parts              as K
 
 import qualified Koshucode.IOList.Op.Regress         as K
 
--- | Operation for @cmd@
+-- | @cmd@ -- Run command and generate I/O list.
 opCmd :: K.Op
 opCmd p args = do
   mx <- K.ioList p [unwords args]
   K.hPutMix K.crlfBreak IO.stdout mx
   return K.StatusMessage
 
--- | Operation for @run@
+-- | @run@ -- Run I/O script.
 opRun :: K.Op
 opRun p args =
     case args of

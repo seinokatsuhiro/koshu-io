@@ -6,9 +6,11 @@ module Koshucode.IOList.File.ForFiles
  ( -- * For files
    forFiles, forFilesRec, forFilesRec_, forFilesPrint,
    forFilesUp,
+
    -- * Directory action
    DirAction, DirFilter, 
    dirActionAll, dirActionVisible, dirActionPrint,
+
    -- * File action
    FileAction,
    fileActionNull, fileActionPrint,
@@ -19,14 +21,9 @@ import qualified Koshucode.IOList.File.FileDirs      as K
 import qualified Koshucode.IOList.File.FilePath      as K
 
 
--- ----------------------  driver
+-- ----------------------  For files
 
-type DirFilter = DirAction [FilePath]
-
-type DirAction a = K.FileDirs -> [FilePath] -> IO a
-
-type FileAction a = K.FileDirs -> IO a
-
+-- | @forFiles@ /dir/ /action/ applies action to filenames in given directory.
 forFiles :: FilePath -> ([FilePath] -> IO a) -> IO a
 forFiles path act = do
   files <- K.listDirectory path
@@ -57,7 +54,12 @@ forFilesPrint :: FilePath -> IO ()
 forFilesPrint path = forFilesRec_ path dirActionPrint fileActionPrint
 
 
--- ----------------------  actions
+-- --------------------------------------------  Directory action
+
+-- | Action for directory and content files.
+type DirAction a = K.FileDirs -> [FilePath] -> IO a
+
+type DirFilter = DirAction [FilePath]
 
 dirActionAll :: DirFilter
 dirActionAll _ = return
@@ -68,14 +70,23 @@ dirActionVisible = dirActionBy K.omitHidden
 dirActionBy :: ([FilePath] -> [FilePath]) -> DirFilter
 dirActionBy keep _ files = return $ keep files
 
+-- | Print number of files and directory path.
 dirActionPrint :: DirFilter
 dirActionPrint dir files = do
   putStrLn $ unwords (reverse $ show (length files) : "/" : K.fileRevDirs dir)
   return files
 
+
+-- --------------------------------------------  File action
+
+-- | Action for file.
+type FileAction a = K.FileDirs -> IO a
+
+-- | Do nothing.
 fileActionNull :: FileAction ()
 fileActionNull _ = return ()
 
+-- | Print file path.
 fileActionPrint :: FileAction ()
 fileActionPrint file = do
   putStrLn $ unwords (reverse $ K.fileName file : K.fileRevDirs file)

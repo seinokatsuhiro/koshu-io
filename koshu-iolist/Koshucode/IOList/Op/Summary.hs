@@ -1,6 +1,8 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Summary operations.
+
 module Koshucode.IOList.Op.Summary
  ( opFind, opSummary, opGrand,
  ) where
@@ -14,7 +16,7 @@ import qualified Koshucode.IOList.Op.Run            as K
 
 -- ----------------------  find
 
--- | Operation for @find@
+-- | @find@ -- Find I/O list scripts.
 opFind :: K.Op
 opFind _ scripts =
   do K.forFilesRec_ "." K.dirActionVisible p
@@ -27,7 +29,7 @@ opFind _ scripts =
 
 -- ----------------------  summary
 
--- | Operation for @summary@
+-- | @summary@ -- Create summary of I/O lists.
 opSummary :: K.Op
 opSummary p@K.Param {..} scripts =
     do K.putHead '-' summaryTitle
@@ -48,7 +50,7 @@ opSummary p@K.Param {..} scripts =
         ms <- K.getCommandScript scripts up files'
         case ms of
           Nothing -> return ([], files')
-          Just  s -> do putFile " - " $ K.scriptFileDirs s
+          Just  s -> do putFile " - " $ K.scriptFile s
                         st <- K.try $ K.runScriptContent p s
                         return $ ([st], files')
 
@@ -60,6 +62,7 @@ putFile prefix f = do
 
 -- ----------------------  grand summary
 
+-- | @grand@ -- Create grand summary.
 opGrand :: K.Op
 opGrand p@K.Param {..} scripts =
     do K.putHead '=' grandTitle

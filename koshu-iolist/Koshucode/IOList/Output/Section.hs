@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Section in I/O list.
+
 module Koshucode.IOList.Output.Section
  ( -- * Section
    Section (..), section, subsection,
@@ -16,6 +18,7 @@ import qualified Koshucode.IOList.Output.Markdown   as K
 
 -- ----------------------  Section
 
+-- | Section.
 data Section a = Section
     { sectionLevel  :: Int
     , sectionNumber :: [Int]
@@ -23,16 +26,20 @@ data Section a = Section
     , sectionBody   :: a
     } deriving (Show, Eq, Ord)
 
+-- | Create section.
 section :: String -> a -> Section a
 section = Section 2 []
 
+-- | Create subsection.
 subsection :: String -> a -> Section a
 subsection = Section 3 []
 
+-- | Count up section number.
 sectionUp :: [Int] -> [Int]
 sectionUp []     = []
 sectionUp (n:ns) = n + 1 : ns
 
+-- | Add section level.
 sectionDeepen :: [Int] -> [Int]
 sectionDeepen ns  = 1 : ns
 

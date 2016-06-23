@@ -20,6 +20,7 @@ import qualified Koshucode.IOList.File.FilePath        as K
 -- | Reversed names of directories
 type RevDirs = [FilePath]
 
+-- | Filename and directory names.
 data FileDirs = FileDirs
     { fileName     :: FilePath    -- ^ Filename
     , fileRevDirs  :: RevDirs     -- ^ Reversed names of directories
@@ -33,15 +34,19 @@ fromFileName name = FileDirs name []
 fromFileNameRevDirs :: FilePath -> RevDirs -> FileDirs
 fromFileNameRevDirs = FileDirs
 
+-- | Components of path of file.
 fileDirs :: FileDirs -> [FilePath]
 fileDirs FileDirs {..} = K.dropDot $ reverse $ fileName : fileRevDirs
 
+-- | Path of file.
 fileDirsPath :: FileDirs -> FilePath
 fileDirsPath f = K.slash $ fileDirs f
 
+-- | Append filename.
 filePush :: FilePath -> FileDirs -> FileDirs
 filePush path fd = FileDirs path (fileName fd : fileRevDirs fd)
 
+-- | Append filename.
 filePushTo :: FileDirs -> FilePath -> FileDirs
 filePushTo = flip filePush
 

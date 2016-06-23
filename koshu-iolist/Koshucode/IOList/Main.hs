@@ -1,12 +1,14 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Main function for the @iolist@ command.
+
 module Koshucode.IOList.Main
   ( iolistMain ) where
 
 import qualified Koshucode.IOList.Op            as K
 import qualified Koshucode.IOList.Parts         as K
 
--- | Main function for @iolist@ command.
+-- | Main function.
 iolistMain :: IO ()
 iolistMain =
   do p <- K.param

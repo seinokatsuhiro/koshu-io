@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Association list.
+
 module Koshucode.IOList.Parts.Assoc
  ( Assoc (..),
    assoc,

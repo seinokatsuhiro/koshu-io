@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Command parameter.
+
 module Koshucode.IOList.Parts.Param
  ( -- * Type
    Param (..),

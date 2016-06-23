@@ -1,9 +1,11 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | I/O script.
+
 module Koshucode.IOList.Parts.Script
  ( CmdLine, CmdName, CmdArg,
    Script (..),
-   scriptFileDirs,
+   scriptFile,
    getCommandScript,
    getSummaryScript,
    readScript,
@@ -24,17 +26,20 @@ type CmdName = String
 -- | Command-line argument
 type CmdArg = String
 
+-- | I/O script.
 data Script
     = CommandScript K.FileDirs [String]  -- ^ Command script
     | SummaryScript K.FileDirs String    -- ^ Summary script
     | GrandScript   K.FileDirs String    -- ^ Grand summary script
       deriving (Show, Eq, Ord)
 
-scriptFileDirs :: Script -> K.FileDirs
-scriptFileDirs (CommandScript fd _) = fd
-scriptFileDirs (SummaryScript fd _) = fd
-scriptFileDirs (GrandScript   fd _) = fd
+-- | Extract file.
+scriptFile :: Script -> K.FileDirs
+scriptFile (CommandScript f _) = f
+scriptFile (SummaryScript f _) = f
+scriptFile (GrandScript   f _) = f
 
+-- | Select command script.
 getCommandScript :: [FilePath] -> K.FileDirs -> [FilePath] -> IO (Maybe Script)
 getCommandScript scripts up files =
   do r <- getScript scripts up files
@@ -42,6 +47,7 @@ getCommandScript scripts up files =
        Just (CommandScript _ _) -> return r
        _ -> return Nothing
 
+-- | Select summary script.
 getSummaryScript :: [FilePath] -> K.FileDirs -> [FilePath] -> IO (Maybe Script)
 getSummaryScript scripts up files =
   do r <- getScript scripts up files

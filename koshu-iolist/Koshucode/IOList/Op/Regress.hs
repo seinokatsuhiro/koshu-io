@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Regression test.
+
 module Koshucode.IOList.Op.Regress
  ( saveOrRegress,
    save, regress,
@@ -102,3 +104,4 @@ bzPutln :: K.Bz -> IO ()
 bzPutln s = do
   Bz.hPut IO.stdout s
   Bz.hPut IO.stdout "\n"
+

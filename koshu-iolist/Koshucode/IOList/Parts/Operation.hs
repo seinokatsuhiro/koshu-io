@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Command operation.
+
 module Koshucode.IOList.Parts.Operation
  ( Operation,
    GetOperations (..),

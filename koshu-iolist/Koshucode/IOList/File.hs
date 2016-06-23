@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | File utility.
+
 module Koshucode.IOList.File
  ( module Koshucode.IOList.File.FileDirs,
    module Koshucode.IOList.File.FilePath,

@@ -2,6 +2,8 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Create I/O list.
+
 module Koshucode.IOList.Output.IOList
  ( ioList,
  ) where

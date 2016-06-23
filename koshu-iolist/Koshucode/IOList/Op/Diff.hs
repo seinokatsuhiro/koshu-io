@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Diff utility.
+
 module Koshucode.IOList.Op.Diff
  ( Line, diff, report,
  ) where
@@ -14,8 +16,10 @@ import qualified Koshucode.Baala.Base                as K
 
 -- --------------------------------------------  diff
 
+-- | Line number and content.
 type Line = (Int, K.Bz)
 
+-- | Diff of two lazy bytestrings.
 diff :: K.Bz -> K.Bz -> [[K.Bz]]
 diff bz1 bz2 =
     let ls1 = diffLine bz1
@@ -31,6 +35,7 @@ diffLine bz = zip [1..] $ Bc.split '\n' bz
 
 -- --------------------------------------------  report
 
+-- | Create diff report.
 report :: [Diff.Diff [Line]] -> [[K.Bz]]
 report [] = []
 report (Diff.First x  : Diff.Second y :  xs)

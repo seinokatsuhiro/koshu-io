@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Input file.
+
 module Koshucode.IOList.Output.File
  ( File (..), maybeFile,
    fileSection, fileSections,
@@ -13,7 +15,7 @@ import qualified Koshucode.Baala.Base              as K
 import qualified Koshucode.IOList.Output.Markdown  as K
 import qualified Koshucode.IOList.Output.Section   as K
 
-
+-- | Input file.
 data File = File 
     { filePath     :: FilePath     -- ^ Path of file
     , fileContent  :: K.Bs         -- ^ Content of file
@@ -40,6 +42,7 @@ fileSection path = do
   file <- maybeFile path
   return $ K.subsection path `fmap` file
 
+-- | Create sections.
 fileSections :: [FilePath] -> IO [K.Section File]
 fileSections ps =
     do fs <- fileSection `mapM` ps

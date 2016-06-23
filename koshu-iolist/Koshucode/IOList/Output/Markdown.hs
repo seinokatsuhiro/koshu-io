@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wall #-}
 
+-- | Markdown utiilty.
+
 module Koshucode.IOList.Output.Markdown
  ( ToMarkdown (..),
    mdTitle,
@@ -24,6 +26,7 @@ import qualified Koshucode.IOList.Parts      as K
 
 -- ----------------------  ToMarkdown
 
+-- | Convert to markdown.
 class ToMarkdown a where
     toMarkdown :: a -> K.MixText
 
