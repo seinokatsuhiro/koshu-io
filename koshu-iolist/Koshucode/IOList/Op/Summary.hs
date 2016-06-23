@@ -22,7 +22,7 @@ opFind _ scripts =
   do K.forFilesRec_ "." K.dirActionVisible p
      return K.StatusMessage
   where
-    p f | isScript     = putStrLn $ K.slash $ K.fileDirs f
+    p f | isScript     = putStrLn $ K.slash $ K.fileDirsPathList f
         | otherwise    = return ()
         where isScript = K.fileName f `elem` scripts
 
@@ -57,7 +57,7 @@ opSummary p@K.Param {..} scripts =
 putFile :: String -> K.FileDirs -> IO ()
 putFile prefix f = do
   putStr prefix
-  putStrLn $ K.slashSpace $ K.fileDirs f
+  putStrLn $ K.slashSpace $ K.fileDirsPathList f
 
 
 -- ----------------------  grand summary
@@ -100,7 +100,7 @@ saveFile total (Nothing) cnt _ = putStrLn $ countText total cnt
 saveFile total (Just script) cnt doc =
   do putStr    $ countText total cnt
      putStr    $ " on "
-     putStrLn  $ K.slashSpace $ K.fileDirs script
+     putStrLn  $ K.slashSpace $ K.fileDirsPathList script
      K.writeMix K.crlfBreak (K.mdFilePath script) doc
 
 countText :: String -> K.StatusCount -> String

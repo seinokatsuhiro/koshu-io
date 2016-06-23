@@ -90,7 +90,7 @@ mixExit (Exit.ExitFailure n) = K.mixBs "fails with status " <> K.mixShow n
 -- | Create linked file name.
 mdFileItem :: K.FileDirs -> K.MixText
 mdFileItem file = K.mixLine item where
-    path = K.fileDirs file
+    path = K.fileDirsPathList file
     item = K.mixBs "- ["
            <> K.mixString (K.slashSpace path)
            <> K.mixBs "]("

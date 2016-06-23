@@ -30,7 +30,7 @@ forFiles path act = do
   Dir.withCurrentDirectory path $ act files
 
 forFilesUp :: forall a. FilePath -> DirAction ([a], [FilePath]) -> IO [a]
-forFilesUp p act = loop $ K.fromFileName p where
+forFilesUp p act = loop $ K.fileDirs p where
     loop :: K.FileDirs -> IO [a]
     loop up = forFiles (K.fileName up) $ \files -> do
          (rs, fs) <- act up files

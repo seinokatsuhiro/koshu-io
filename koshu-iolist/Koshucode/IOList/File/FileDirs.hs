@@ -8,8 +8,8 @@ module Koshucode.IOList.File.FileDirs
    FileDirs (..), RevDirs,
 
    -- * Functions
-   fromFileName, fromFileNameRevDirs,
-   fileDirs, fileDirsPath,
+   fileDirs,
+   fileDirsPathList, fileDirsPath,
    filePush, filePushTo,
    changeExtension,
  ) where
@@ -27,20 +27,16 @@ data FileDirs = FileDirs
     } deriving (Show, Eq, Ord)
 
 -- | Construct 'FileDirs' from file name (not include directories).
-fromFileName :: FilePath -> FileDirs
-fromFileName name = FileDirs name []
-
--- | Construct 'FileDirs' from file name and reversed directories.
-fromFileNameRevDirs :: FilePath -> RevDirs -> FileDirs
-fromFileNameRevDirs = FileDirs
+fileDirs :: FilePath -> FileDirs
+fileDirs name = FileDirs name []
 
 -- | Components of path of file.
-fileDirs :: FileDirs -> [FilePath]
-fileDirs FileDirs {..} = K.dropDot $ reverse $ fileName : fileRevDirs
+fileDirsPathList :: FileDirs -> [FilePath]
+fileDirsPathList FileDirs {..} = K.dropDot $ reverse $ fileName : fileRevDirs
 
 -- | Path of file.
 fileDirsPath :: FileDirs -> FilePath
-fileDirsPath f = K.slash $ fileDirs f
+fileDirsPath f = K.slash $ fileDirsPathList f
 
 -- | Append filename.
 filePush :: FilePath -> FileDirs -> FileDirs

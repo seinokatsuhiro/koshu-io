@@ -34,7 +34,7 @@ opRun p args =
       []     -> run $ K.paramDefault p
       _      -> helpRun
     where
-      run file = runScriptFile p $ K.fromFileName file
+      run file = runScriptFile p $ K.fileDirs file
 
 helpRun :: IO K.Status
 helpRun = do
